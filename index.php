@@ -85,18 +85,17 @@
         var piva = $("#ddlPiva").val();
         var cf = $("#ddlCf").val();
         var azienda = $("#ddlAzienda").val();
+        var chAdmin=0;
         if ($("#ddlAdmin").is(":checked")){
-            var chAdmin = 1;
-        } else {
-            var chAdmin = 0;
+             chAdmin = 1;
         }
         $.ajax({
             type: "POST",
             url: "request.php",
-            data: "email="+email+"&password="+password+"&nome="+nome+"&cognome="+cognome+"&data="+data+"&telefono="+telefono+"&piva="+piva+"&cf="+cf+"&azienda="+azienda+"&chadmin="+chadmin,
+            data: "email="+email+"&password="+password+"&nome="+nome+"&cognome="+cognome+"&data="+data+"&telefono="+telefono+"&piva="+piva+"&cf="+cf+"&azienda="+azienda+"&chadmin="+chAdmin,
             success: function(res) {
                 console.log(res);
-            }
+            },
             error: function() {
                 alert("Ahi ahi");
             }
