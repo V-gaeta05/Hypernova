@@ -22,6 +22,7 @@
   </head>
   <body>
     <h1>Hello, world!</h1>
+    <a href="index.php?logout" style="float: right;"><button class="btn btn-light">LogOut</button></a>
 
     <table class="table" id="main_table">
   <thead>
