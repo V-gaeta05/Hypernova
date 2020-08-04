@@ -3,10 +3,11 @@
     require_once("db.php");
 
     if (isset($_GET)) {
+            $id = $_POST['id'];
             $data = [];
             if ($_GET['method'] == 'get_fatture') {
 
-                $query = "SELECT * FROM hy_fatture ";
+                $query = "SELECT * FROM hy_fatture WHERE id_socio = '$id'";
 
                 $result = $conn->query($query);
 

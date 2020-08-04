@@ -1,3 +1,11 @@
+<?php
+  require_once("session.php");
+  if (isset($_GET)) {
+    $id = $_GET['id'];
+    
+  }
+?>
+
 <!doctype html>
 <html lang="it">
   <head>
@@ -49,9 +57,11 @@ $(document).ready( function () {
     get_fatture();
 } );
     function get_fatture() {
+        var id = <?php echo $id; ?>;
         $.ajax({
             method: 'POST',
             url: 'request.php?method=get_fatture',
+            data: 'id='+id,
             success: function(res) {
                 var data = JSON.parse(res);
                 create_table(data);
