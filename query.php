@@ -4,7 +4,6 @@
     $login=new Login($conn);
     if(isset($_POST['check_log'])){
         $id=$login->logUtente();
-        session_start();
         header('location:index.php?id='.$id);
     }
     if(isset($_POST['check_reg'])){
