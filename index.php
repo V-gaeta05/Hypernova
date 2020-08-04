@@ -1,104 +1,88 @@
-<?php
-
-?>
 <!doctype html>
-<html lang="en">
+<html lang="it">
   <head>
-  <link rel="icon"  type="image/ico" href="#">
-    <title> Prova</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
-    <link rel="stylesheet" type="text/css" href="Pages/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <div id="tabella_fatture"></div>
+
+    <title>Hello, world!</title>
   </head>
   <body>
+    <h1>Hello, world!</h1>
 
-    <form>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="ddlEmail" aria-describedby="emailHelp" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="ddlPassword" placeholder="Password">
-    </div>
+    <table class="table" id="main_table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Codice Fattura</th>
+      <th scope="col">ID socio</th>
+      <th scope="col">Nome cliente</th>
+      <th scope="col">Stato pagamento</th>
+      <th scope="col">Data emissione</th>
+      <th scope="col">Data pagamento</th>
+      <th scope="col">Valore</th>
+      <th scope="col">ID cliente</th>
+      <th scope="col">Dettagli</th>
+    </tr>
+  </thead>
+  <tbody id="main_table_body">
     
-    <div class="form-group">
-        <label for="exampleInputEmail1">Nome</label>
-        <input type="text" class="form-control" id="ddlNome" aria-describedby="emailHelp" placeholder="Nome">
-    </div>
-    
-    <div class="form-group">
-        <label for="exampleInputEmail1">Cognome</label>
-        <input type="text" class="form-control" id="ddlCognome" aria-describedby="emailHelp" placeholder="Cognome">
-    </div>
-    
-    <div class="form-group">
-        <label for="exampleInputEmail1">Data di Nascita</label>
-        <input type="date" class="form-control" id="ddlDate" aria-describedby="emailHelp" placeholder="Data di nascita">
-    </div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Numero di telefono</label>
-        <input type="tel" class="form-control" id="ddlTelefono" placeholder="Numero di telefono">
-    </div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Partita IVA</label>
-        <input type="text" class="form-control" id="ddlPiva" aria-describedby="emailHelp" placeholder="Partita IVA">
-    </div>
-    
-    <div class="form-group">
-        <label for="exampleInputEmail1">Codice Fiscale</label>
-        <input type="text" class="form-control" id="ddlCf" aria-describedby="emailHelp" placeholder="Codice Fiscale">
-    </div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Azienda</label>
-        <input type="text" class="form-control" id="ddlAzienda" aria-describedby="emailHelp" placeholder="Azienda">
-    </div>
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="ddlAdmin">
-        <label class="form-check-label" for="exampleCheck1">Check if Admin</label>
-    </div>
-    
-    </form>
-    <button onclick="sandData()" type="submit" class="btn btn-primary">Submit</button>
+  </tbody>
+</table>
 
-
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
   </body>
 </html>
 
-<script type="text/javascript">
-    function sandData(){
-        var email = $("#ddlEmail").val();
-        var password = $("#ddlPassword").val();
-        var nome = $("#ddlNome").val();
-        var cognome = $("#ddlCognome").val();
-        var data = $("#ddlDate").val();
-        var telefono = $("#ddlTelefono").val();
-        var piva = $("#ddlPiva").val();
-        var cf = $("#ddlCf").val();
-        var azienda = $("#ddlAzienda").val();
-        var chAdmin=0;
-        if ($("#ddlAdmin").is(":checked")){
-             chAdmin = 1;
-        }
+<script>
+$(document).ready( function () {
+    get_fatture();
+} );
+    function get_fatture() {
         $.ajax({
-            type: "POST",
-            url: "request.php",
-            data: "email="+email+"&password="+password+"&nome="+nome+"&cognome="+cognome+"&data="+data+"&telefono="+telefono+"&piva="+piva+"&cf="+cf+"&azienda="+azienda+"&chadmin="+chAdmin,
+            method: 'POST',
+            url: 'request.php?method=get_fatture',
             success: function(res) {
-                console.log(res);
+                var data = JSON.parse(res);
+                create_table(data);
+                $('#main_table').DataTable();
             },
             error: function() {
-                alert("Ahi ahi");
+                alert('Something going wrong!');
             }
         })
+    }
+
+    function create_table(data) {
+        console.log(data);
+        if (data.length>0) {
+            var table_body = '';
+            for (i=0; i< data.length; i++) {
+                table_body += '<tr>'+
+                            '<th scope="col">'+data[i]['id']+'</th>'+
+                            '<td scope="col">'+data[i]['code']+'</td>'+
+                            '<td scope="col">'+data[i]['id_socio']+'</td>'+
+                            '<td scope="col">'+data[i]['nome_cliente']+'</td>'+
+                            '<td scope="col">'+data[i]['stato_pagamento']+'</td>'+
+                            '<td scope="col">'+data[i]['data_emissione']+'</td>'+
+                            '<td scope="col">'+data[i]['data_pagamento']+'</td>'+
+                            '<td scope="col">'+data[i]['valore']+'</td>'+
+                            '<td scope="col">'+data[i]['id_cliente']+'</td>'+
+                            '<td><a href="fatture.php?id='+data[i]['code']+'&method=dettagli">dettagli</a></td>'+
+                            '</tr>';
+            }
+        }
+        
+        $('#main_table_body').html(table_body);
     }
 </script>
