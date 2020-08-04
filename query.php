@@ -6,3 +6,7 @@
         $id=$login->logUtente();
         header('location:index.php?id='.$id);
     }
+    if(isset($_POST['check_reg'])){
+        $registra= new Registrazione();
+        $registra-> RegistrazioneUtente();
+    }

@@ -29,34 +29,54 @@ class Registrazione{
     public function RegistrazioneUtente(){
         
         try{
-        $db = new PDO("mysql:host=localhost;dbname=tennis_club",'root','');
+        $db = new PDO("mysql:host=localhost;dbname=hypernova",'root','');
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }catch(PDOException $e){
         echo $e->getMessage();
         }
         $reg= new aggRegistrazione();
+        $cf=$_POST['cf'];
+        $data=$_POST['data'];
+        $piva=$_POST['pIva'];
+        $tel=$_POST['nTel'];
+        $azienda=$_POST['azienda'];
         $nome=$_POST['nome'];
         $cognome=$_POST['cognome'];
         $email=$_POST['emailreg'];
         $password=$_POST['passwordreg'];
         $tipo_utente=$_POST['check_reg'];
-        $nome2= $reg->setName($nome);
-        $cognome2=$reg->setSurname($cognome);
-        $email2=$reg->setMail($email);
-        $password2=$reg->setPsw($password);
+        $nome= $reg->setName($nome);
+        $cognome=$reg->setName($cognome);
+        $azienda=$reg->setName($azienda);
+        $cf=$reg->setCf($cf);
+        $data=$reg->setData($data);
+        $piva=$reg->setPiva($piva);
+        $tel=$reg->setTel($tel);
+        $email=$reg->setMail($email);
+        $password=$reg->setPsw($password);
         
-        $insert = $db->prepare("INSERT INTO tc_utenti SET
-        Nome=:Nome,
-        Cognome=:Cognome,
+        $insert = $db->prepare("INSERT INTO hy_soci SET
         Email=:Email,
         Password=:Password,
-        Tipo_utente=:Tipo_utente");
+        Nome=:Nome,
+        Cognome=:Cognome,
+        Numero_telefono=:Numero_telefono,
+        Partita_iva=:Partita_iva,
+        Codice_fiscale=:Codice_fiscale,
+        Azienda=:Azienda,
+        Data_di_nascita=:Data_di_nascita,
+        Admin=:Admin");
         $insert->execute(array(
-            'Nome'=>$nome2,
-            'Cognome'=>$cognome2,
-            'Email'=>$email2,
-            'Password'=>$password2,
-            'Tipo_utente'=>$tipo_utente
+            'Email'=>$email,
+            'Password'=>$password,
+            'Nome'=>$nome,
+            'Cognome'=>$cognome,
+            'Numero_telefono'=>$tel,
+            'Partita_iva'=>$piva,
+            'Codice_fiscale'=>$cf,
+            'Azienda'=>$azienda,
+            'Data_di_nascita'=>$data,
+            'Admin'=>$tipo_utente
         ));
         require 'vendor/autoload.php';
         $mail = new PHPMailer(true);
@@ -86,7 +106,7 @@ class Registrazione{
                 $mail->Body= 'Attiva il tuo account:
                 <a href="localhost/Gestionale_tennis2.0/index.php"> Attiva</a>';
                 $mail->send();
-                header('location:../index.php?success');
+                header('location:login.php?success');
             }catch(Exception $e){
             echo 'errore';
             }  
@@ -94,11 +114,51 @@ class Registrazione{
 }
 
 class aggRegistrazione extends Registrazione{
-    private $azienda;
     private $data;
     private $cf;
     private $piva;
     private $tel;
+    public function setCf($cf){
+        if(strlen($cf)==0){
+            echo '<span style="color:red;">Compilare il campo Codice Fiscale</span>';
+        }elseif(!preg_match('/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/',$cf)){
+            echo '<span style="color:red;">Compilare correttamente il campo Codice Fiscale</span>';
+        }else{
+            $cf= filter_var($cf,FILTER_SANITIZE_STRING);
+            $cf= strtoupper($cf);
+            $this->cf=$cf;
+            return $this->cf;
+        }
+    }
+    
+    public function setData($data){
+        if(strlen($data)== 10) {
+            $this->data=$data;
+            return $this->data;
+        }else{
+            echo '<span style="color:red;">Compilare correttamente il campo Data di Nascita</span>';
+        }
+    }
+    
+    public function setPiva($piva){
+        if(strlen($piva)==0){
+            echo '<span style="color:red;">Compilare il campo Partita Iva</span>';
+        }else{
+            $piva= filter_var($piva,FILTER_SANITIZE_STRING);
+            $this->piva=$piva;
+            return $this->piva; 
+        }
+    }
+
+    public function setTel($tel){
+        if(!preg_match('/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/',$tel)){
+            echo '<span style="color:red;">Compilare correttamente il campo N.Telefono</span>';
+        }else{
+            $tel= filter_var($tel,FILTER_SANITIZE_NUMBER_INT);
+            $this->tel=$tel;
+            return $this->tel; 
+        }
+    }
 
     public function setName($nome){
         if(strlen($nome)==0){
@@ -111,17 +171,7 @@ class aggRegistrazione extends Registrazione{
             return( $this->name);
         }
     }
-    public function setSurname($cognome){
-        if(strlen($cognome)==0){
-            echo '<span style="color:red;">Compilare il campo Cognome</span>';
-        }elseif(preg_match('/[\'\/~`\!@#\$%\^&\*\(\)_\-\+=\{\}\[\]\|;:"\<\>,\.\?\\\]/',$cognome)){
-            echo '<span style="color:red;">Non vanno inseriti caratteri speciali</span>';
-        }else{
-        $cognome= filter_var($cognome, FILTER_SANITIZE_STRING);
-        $this->surname=$cognome;
-        return( $this->surname);
-        }
-    }
+
     public function setMail($email){
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
             echo '<span style="color:red;">Compilare correttamente il campo Email</span>';
@@ -157,11 +207,10 @@ class Login{
         $reg= new aggRegistrazione();
         $this->email=$_POST['emaillog'];
         $psw=$_POST['passwordlog'];
-        //$psw=$reg->setPsw($psw);
+        $psw=$reg->setPsw($psw);
         $this->psw=$psw;
         $query="SELECT * FROM hy_soci  WHERE Email="."'".$this->email."'"." AND  Password="."'".$this->psw."'"."";
         $verifica_login =$this->db->query($query)->fetch_array();
-        //var_dump( $query);
         if(!empty($verifica_login)){
            global $idu;
            $idu=$verifica_login['Id'];

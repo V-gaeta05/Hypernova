@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <link rel="icon"  type="image/ico" href="Immagini/palla_tennis.png">
-    <title>  Circolo Tennis</title>
+    <title>  Hypernova</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -163,7 +163,7 @@
       let nome= $("#nome");
       let cognome= $("#cognome");
       let tel=$("#nTel");
-      let pIva=$("#pIva");
+      let piva=$("#pIva");
       let cf=$("#cf");
       let data=$("#data");
       let azienda=$("#azienda");
@@ -180,7 +180,7 @@
         cf.css("border-color","black");
         $("#errorcf").remove();  
       }
-      if(!piva.val().lenght==11){
+      if(piva.val().lenght <11 && piva.val().lenght >11 ){
         $("#errorpiva").remove();
         piva.css("border-color","red");
         piva.after('<p id="errorpiva" style="color:red;">Compilare correttamente la partita iva</p>');
