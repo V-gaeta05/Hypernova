@@ -111,7 +111,7 @@
         check +=1;
         $("#errormail1").remove();
         email.css("border-color","red");  
-        email.after('<p id="errormail1" style="color:red;">Compilare il campo email</p>')
+        email.after('<p id="errormail1" style="color:red;">Compilare il campo email</p>');
       }else{
         email.css("border-color","black");
         $("#errormail1").remove();
@@ -120,7 +120,7 @@
         check +=1;
         $("#errormail2").remove();
         email.css("border-color","red");  
-        email.after('<p id="errormail2" style="color:red;">Inserire una mail valida</p>')
+        email.after('<p id="errormail2" style="color:red;">Inserire una mail valida</p>');
       } else{
         email.css("border-color","black");
         $("#errormail2").remove();
@@ -129,7 +129,7 @@
         check +=1;
         $("#errormail3").remove();
         conf_email.css("border-color","red");  
-        conf_email.after('<p id="errormail3" style="color:red;">I campi email e conferma email devono corrispondere</p>')
+        conf_email.after('<p id="errormail3" style="color:red;">I campi email e conferma email devono corrispondere</p>');
       }else{
         conf_email.css("border-color","black");  
         $("#errormail3").remove();
@@ -138,7 +138,7 @@
         check +=1;
         $("#errorpsw1").remove();
         psw.css("border-color","red");  
-        psw.after('<p id="errorpsw1" style="color:red;">La password deve avere almeno 8 caratteri un carattere speciale una lettera maiuscola una lettera minuscola ed un numero</p>')
+        psw.after('<p id="errorpsw1" style="color:red;">La password deve avere almeno 8 caratteri un carattere speciale una lettera maiuscola una lettera minuscola ed un numero</p>');
       }else{
         psw.css("border-color","black"); 
         $("#errorpsw1").remove(); 
@@ -147,7 +147,7 @@
         check +=1;
         $("#errorpsw2").remove();
         conf_psw.css("border-color","red");  
-        conf_psw.after('<p id="errorpsw2" style="color:red;">I campi password e conferma password devono corrispondere</p>')
+        conf_psw.after('<p id="errorpsw2" style="color:red;">I campi password e conferma password devono corrispondere</p>');
       }else{
         conf_psw.css("border-color","black");  
         $("#errorpsw2").remove();
@@ -175,12 +175,13 @@
         check2+=1
         $("#errorcf").remove();
         cf.css("border-color","red");
-        cf.after('<p id="errorcf" style="color:red;">Compilare correttamente il cf</p>')
+        cf.after('<p id="errorcf" style="color:red;">Compilare correttamente il cf</p>');
       }else{
         cf.css("border-color","black");
         $("#errorcf").remove();  
       }
       if(piva.val().lenght <11 && piva.val().lenght >11 ){
+        check2+=1
         $("#errorpiva").remove();
         piva.css("border-color","red");
         piva.after('<p id="errorpiva" style="color:red;">Compilare correttamente la partita iva</p>');
@@ -190,6 +191,7 @@
         $("#errorpiva").remove();
       }
       if(data.val().length<10){
+        check2+=1
         $("#errordata").remove();
         data.css("border-color","red");
         data.after('<p id="errordata" style="color:red;">Compilare correttamente il cf</p>');
@@ -201,7 +203,7 @@
         check2+=1
         $("#errorname1").remove();
         nome.css("border-color","red");  
-        nome.after('<p id="errorname1" style="color:red;">Compilare il campo nome</p>')
+        nome.after('<p id="errorname1" style="color:red;">Compilare il campo nome</p>');
       }else{
         nome.css("border-color","black");  
         $("#errorname1").remove();
@@ -210,7 +212,7 @@
         check2+=1
         $("#errorname2").remove();
         nome.css("border-color","red");  
-        nome.after('<p id="errorname2" style="color:red;">Sono consentite solo le lettere nel nome</p>')
+        nome.after('<p id="errorname2" style="color:red;">Sono consentite solo le lettere nel nome</p>');
       }else{
         nome.css("border-color","black");  
         $("#errorname2").remove();
@@ -219,7 +221,7 @@
         check2+=1
         $("#errorsurname1").remove();
         cognome.css("border-color","red");  
-        cognome.after('<p id="errorsurname1" style="color:red;">Compilare il campo cognome</p>')
+        cognome.after('<p id="errorsurname1" style="color:red;">Compilare il campo cognome</p>');
       }else{
         cognome.css("border-color","black");  
         $("#errorsurname1").remove();
@@ -228,7 +230,7 @@
         check2+=1
         $("#errorsurname2").remove();
         cognome.css("border-color","red");  
-        cognome.after('<p id="errorsurname2" style="color:red;">Sono consentite solo le lettere nel cognome</p>')
+        cognome.after('<p id="errorsurname2" style="color:red;">Sono consentite solo le lettere nel cognome</p>');
       }else{
         cognome.css("border-color","black");  
         $("#errorsurname2").remove();
@@ -237,7 +239,7 @@
         check2+=1
         $("#errorazienda1").remove();
         azienda.css("border-color","red");  
-        azienda.after('<p id="errorazienda1" style="color:red;">Compilare il campo azienda</p>')
+        azienda.after('<p id="errorazienda1" style="color:red;">Compilare il campo azienda</p>');
       }else{
         azienda.css("border-color","black");  
         $("#errorazienda1").remove();
@@ -246,7 +248,7 @@
         check2+=1
         $("#errorazienda2").remove();
         azienda.css("border-color","red");  
-        azienda.after('<p id="errorazienda2" style="color:red;">Sono consentite solo le lettere per l`azienda</p>')
+        azienda.after('<p id="errorazienda2" style="color:red;">Sono consentite solo le lettere per l`azienda</p>');
       }else{
         azienda.css("border-color","black");  
         $("#errorazienda2").remove();
@@ -255,7 +257,7 @@
         check2+=1
         $("#errortel").remove();
         tel.css("border-color","red");
-        tel.after('<p id="errortel" style="color:red;">Inserire un numero di telefono valido</p>')
+        tel.after('<p id="errortel" style="color:red;">Inserire un numero di telefono valido</p>');
       }else{
         tel.css("border-color","black"); 
         $("#errortel").remove(); 

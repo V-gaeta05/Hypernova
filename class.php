@@ -240,3 +240,30 @@ class Login{
         }
     }
     }
+    class AggCliente{
+        private $db;
+
+        function __construct($db){
+            $this->db=$db;
+        }
+        public function aggCliente(){
+            $reg= new aggRegistrazione();
+            $nome = $_POST['nome'];
+            $piva = $_POST['piva'];
+            $email = $_POST['email'];
+            $tel = $_POST['tel'];
+            $idsocio = $_SESSION['USER_ID'];
+            $nome = $reg->setName($nome);
+            $piva = $reg->setPiva($piva);
+            $email = $reg->setMail($email);
+            $tel = $reg->setTel($tel);
+            $query = "INSERT INTO `hy_clienti`(`Nome`, `Partita_iva`, `Email`, `Numero_telefono`, `id_socio`) VALUES (?,?,?,?,?)";
+            if($stmt = $this->db->prepare($query)){
+                $stmt->bind_param("sssss",$nome,$piva,$email,$tel,$idsocio);
+                if($stmt->execute()){
+                    header('location:index.php');
+                }
+            }
+        }
+
+    }
