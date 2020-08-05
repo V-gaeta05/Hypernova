@@ -69,7 +69,6 @@
 <script>
 $(document).ready( function () {
     get_fatture();
-    $("#hamburger").trigger("click");
 } );
     function get_fatture() {
         var id = <?php echo $id; ?>;
