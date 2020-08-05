@@ -1,8 +1,7 @@
 <?php
   require_once("session.php");
-  if (isset($_GET)) {
+  if (isset($_SESSION)) {
     $id = $_SESSION['USER_ID'];
-    
   }
 ?>
 
@@ -21,7 +20,6 @@
     <title>Hello, world!</title>
   </head>
   <body>
-    <h1>Hello, world!</h1>
     <a href="index.php?logout" style="float: right;"><button class="btn btn-light">LogOut</button></a>
 
     <table class="table" id="main_table">
@@ -30,7 +28,6 @@
       <th scope="col">#</th>
       <th scope="col">Codice Fattura</th>
       <th scope="col">ID socio</th>
-      <th scope="col">Nome cliente</th>
       <th scope="col">Stato pagamento</th>
       <th scope="col">Data emissione</th>
       <th scope="col">Data pagamento</th>
@@ -65,6 +62,7 @@ $(document).ready( function () {
             data: 'id='+id,
             success: function(res) {
                 var data = JSON.parse(res);
+                console.log(data);
                 create_table(data);
                 $('#main_table').DataTable();
             },
@@ -75,7 +73,6 @@ $(document).ready( function () {
     }
 
     function create_table(data) {
-        console.log(data);
         if (data.length>0) {
             var table_body = '';
             for (i=0; i< data.length; i++) {
@@ -83,7 +80,6 @@ $(document).ready( function () {
                             '<th scope="col">'+data[i]['id']+'</th>'+
                             '<td scope="col">'+data[i]['code']+'</td>'+
                             '<td scope="col">'+data[i]['id_socio']+'</td>'+
-                            '<td scope="col">'+data[i]['nome_cliente']+'</td>'+
                             '<td scope="col">'+data[i]['stato_pagamento']+'</td>'+
                             '<td scope="col">'+data[i]['data_emissione']+'</td>'+
                             '<td scope="col">'+data[i]['data_pagamento']+'</td>'+

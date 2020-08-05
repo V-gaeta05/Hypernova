@@ -14,7 +14,6 @@
             $id = $row['id'];
             $code = $row['code'];
             $id_socio = $row['id_socio'];
-            $nome_cliente = $row['nome_cliente'];
             $stato_pagamento = $row['stato_pagamento'];
             $data_emissione = $row['data_emissione'];
             $data_pagamento = $row['data_pagamento'];
