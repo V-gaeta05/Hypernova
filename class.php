@@ -221,4 +221,22 @@ class Login{
             
         }
     }
-}
+    public function getRank(){
+        $reg= new aggRegistrazione();
+        $this->email=$_POST['emaillog'];
+        $psw=$_POST['passwordlog'];
+        $psw=$reg->setPsw($psw);
+        $this->psw=$psw;
+        $query="SELECT * FROM hy_soci  WHERE Email="."'".$this->email."'"." AND  Password="."'".$this->psw."'"."";
+        $verifica_login =$this->db->query($query)->fetch_array();
+        if(!empty($verifica_login)){
+           global $idu;
+           $rank=$verifica_login['Rank'];
+           return $rank; 
+
+        }else{
+           return ('error'); 
+            
+        }
+    }
+    }
