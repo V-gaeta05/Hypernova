@@ -4,7 +4,8 @@
     $login=new Login($conn);
     if(isset($_POST['check_log'])){
         $id=$login->logUtente();
-        header('location:index.php?id='.$id);
+        setcookie('LOGIN', $id, time()+7200);
+        header('location:index.php');
     }
     if(isset($_POST['check_reg'])){
         $registra= new Registrazione();
