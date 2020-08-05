@@ -3,10 +3,10 @@
     require_once("db.php");
 
     if (isset($_GET)) {
-            $id = $_POST['id'];
-            $data = [];
+            
             if ($_GET['method'] == 'get_fatture') {
-
+                $id = $_POST['id'];
+                $data = [];
                 $query = "SELECT * FROM hy_fatture WHERE id_socio = '$id'";
 
                 $result = $conn->query($query);
@@ -36,6 +36,20 @@
                 echo json_encode($data);
 
                 
+            } else if ($_GET['method'] == 'set_fattura') {
+                $id_socio = $_POST['id_socio'];
+                $id_cliente = $_POST['id_cliente'];
+                $code = $_POST['code'];
+                $causale = $_POST['causale'];
+                $valore = $_POST['valore'];
+
+                $sql = "INSERT INTO `hy_fatture`(`code`, `causale`, `id_socio`,`valore`, `id_cliente`) VALUES ('$code','$causale','$id_socio','$valore','$id_cliente')";
+
+                if ($conn->query($sql) === TRUE) {
+                    echo "Nuova Fattura creata.";
+                } else {
+                    echo "Qualcosa non ha funzionato";
+                }
             }
 
     }

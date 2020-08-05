@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <div id="tabella_fatture"></div>
 
     <title>Hello, world!</title>
   </head>
@@ -41,7 +40,6 @@
     <table class="table" id="main_table">
   <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Codice Fattura</th>
       <th scope="col">ID socio</th>
       <th scope="col">Stato pagamento</th>
@@ -56,6 +54,8 @@
     
   </tbody>
         </table>
+  
+  <button class="btn btn-light" id="createFatturaButton">Crea Nuova Fattura</button>
     </div>
             <!-- Optional JavaScript -->
             <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -94,7 +94,6 @@ $(document).ready( function () {
             var table_body = '';
             for (i=0; i< data.length; i++) {
                 table_body += '<tr>'+
-                            '<th scope="col">'+data[i]['id']+'</th>'+
                             '<td scope="col">'+data[i]['code']+'</td>'+
                             '<td scope="col">'+data[i]['id_socio']+'</td>'+
                             '<td scope="col">'+data[i]['stato_pagamento']+'</td>'+
@@ -124,4 +123,8 @@ and the background color of body to white */
         
         
     }
+
+    $('#createFatturaButton').click(function() {
+        window.location = "fatture.php?method=create";
+    });
 </script>
