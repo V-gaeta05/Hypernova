@@ -44,9 +44,15 @@
                 $valore = $_POST['valore'];
 
                 $sql = "INSERT INTO `hy_fatture`(`code`, `causale`, `id_socio`,`valore`, `id_cliente`) VALUES ('$code','$causale','$id_socio','$valore','$id_cliente')";
-
+                
+                
                 if ($conn->query($sql) === TRUE) {
-                    echo "Nuova Fattura creata.";
+                    $id = $conn->insert_id;
+                    $data = [
+                        'code' => $code,
+                        'id_fattura' => $id
+                    ];
+                    echo json_encode($data);
                 } else {
                     echo "Qualcosa non ha funzionato";
                 }

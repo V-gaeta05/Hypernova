@@ -3,7 +3,7 @@
     require_once("session.php");
     
     if (isset($_GET)&&(!empty($_GET))) {
-
+        $id_user = $_SESSION['USER_ID'];
         
         if ($_GET['method'] == 'dettagli') {
 
@@ -24,7 +24,6 @@
 
         } else if($_GET['method'] == 'create') {
             // code for create element
-            $id = $_SESSION['USER_ID'];
             $codeFattura = '';
             $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             $charactersLength = strlen($characters);
@@ -38,6 +37,8 @@
             $sql = "SELECT Id, Nome FROM hy_clienti WHERE id_socio = '$id' ORDER BY Nome";
 
             $query = $conn->query($sql);
+
+        } else if ($_GET['method'] == 'summary') {
 
         }
 
@@ -136,10 +137,13 @@
         </div>
     </form>
     <button type="submit" class="btn btn-primary" onclick="crea_fattura()">Submit</button>
+  <?php }  else if ($_GET['method'] == 'summary') {?>
+    <h1>Codice Fattura:</h1>
+    <p><?php echo $_GET['code']; ?></p>
+    <h1>ID Fattura:</h1>
+    <p><?php echo $_GET['id_fattura']; ?></p>
+
   <?php } ?>
-    
-
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -150,7 +154,7 @@
 
 <script>
     function crea_fattura() {
-        var id_socio = <?php echo $id;?>;
+        var id_socio = <?php echo $id_user;?>;
         var code = $("#codiceFattura").val();
         var causale = $("#causaleFattura").val();
         var valore = $("#valoreFattura").val();
@@ -161,7 +165,8 @@
             url: 'request.php?method=set_fattura',
             data: 'id_socio='+id_socio+'&id_cliente='+id_utente+'&code='+code+'&causale='+causale+'&valore='+valore,
             success: function(res) {
-                console.log(res);
+                var data = JSON.parse(res);
+                window.location = "fatture.php?method=summary&code="+data['code']+'&id_fattura='+data['id_fattura'];
             },
             error: function() {
                 alert("Something going wrong");
