@@ -1,9 +1,23 @@
 <?php 
 require('db.php');
  if(isset($_GET['code'])){
-    $code = $_GET['code'];
-    $query= "SELECT * FROM `hy_fatture` WHERE `code`="."'".$code."'"."";
-    $select = $conn->query($query)->fetch_array();
+    
+      $code = $_GET['code'];
+      $query= "SELECT * FROM `hy_fatture` WHERE `code`="."'".$code."'"."";
+      $select = $conn->query($query)->fetch_array();
+
+      if ($_GET['method'] == 'pagamento_riuscito') {
+        $code = $_GET['code'];
+        $name = $_GET['pagamento_da'];
+        $now = date('y-m-d H:i:s');
+        $sql = "UPDATE `hy_fatture` SET `stato_pagamento`= 1,`data_pagamento`= '$now' WHERE code = '$code'";
+
+        if ($conn->query($sql) === TRUE ) {
+
+        } else {
+          die("Ahi ahi toppai!");
+        }
+      }
  }
 ?>
 <!doctype html>
@@ -20,10 +34,22 @@ require('db.php');
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
+        <?php if ($_GET['method'] == 'pagamento_visual') { ?>
         <h3>Importo: <?php echo $select['valore']; ?></h3><br>
         <h3>Data Emissione: <?php echo $select['data_emissione']; ?></h3><br>
         <h3>Causale: <?php echo $select['causale']; ?></h3><br>
-        <div id="paypal-button-container"></div>
+<?php     if ($select['stato_pagamento'] == 0) {?><div id="paypal-button-container"></div><?php 
+          } else { ?>
+            <h3>Data Pagamento Effettuato:</h3> <p><?php echo $select['data_pagamento'];?></p>
+          <?php }
+
+        } else if($_GET['method'] == 'pagamento_riuscito') { ?>
+          
+        <h1>Pagamento riuscito</h1>
+        <p>Grazie mille <?php echo $name; ?> per il tuo pagamento.</p>
+        
+        <?php }?>
+        
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -36,6 +62,7 @@ require('db.php');
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>
+
 <script>
   paypal.Buttons({
     createOrder: function(data, actions) {
@@ -52,7 +79,8 @@ require('db.php');
       // This function captures the funds from the transaction.
       return actions.order.capture().then(function(details) {
         // This function shows a transaction success message to your buyer.
-        alert('Transaction completed by ' + details.payer.name.given_name);
+        
+        window.location = "pagamenti.php?code=<?php echo $code; ?>&method=pagamento_riuscito&pagamento_da="+details.payer.name.given_name;
       });
     }
   }).render('#paypal-button-container');

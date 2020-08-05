@@ -105,6 +105,8 @@
         </tbody>
     </table>
 
+    <button onclick="go_pagamento('<?php echo $code;?>')">Vai al pagamento</button>
+
 <!-- HTML FOR SHOW CREATE FORM -->
   <?php } else if ($_GET['method'] == 'create') { ?>
     <form>
@@ -172,5 +174,8 @@
                 alert("Something going wrong");
             }
         })
+    }
+    function go_pagamento(code) {
+        window.location = "pagamenti.php?method=pagamento_visual&code="+code;
     }
 </script>
