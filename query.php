@@ -4,7 +4,9 @@
     $login=new Login($conn);
     if(isset($_POST['check_log'])){
         $id=$login->logUtente();
+        $rank = $login->getRank();
         setcookie('LOGIN', $id, time()+7200);
+        setcookie('RANK', $rank, time()+7200);
         header('location:index.php');
     }
     if(isset($_POST['check_reg'])){
