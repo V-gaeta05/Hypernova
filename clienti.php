@@ -104,7 +104,7 @@ and the background color of body to white */
             email.css("border-color","black");
             $("#errormail2").remove();
         }
-        if(piva.val().lenght <11 || piva.val().lenght >11 ){
+        if(piva.val().length <11 || piva.val().length >11 ){
             check += 1;
             $("#errorpiva").remove();
             piva.css("border-color","red");
@@ -113,7 +113,7 @@ and the background color of body to white */
         }else{
             piva.css("border-color","black");
             $("#errorpiva").remove();
-        } 
+        }
         if(!tel.val().match(retel)){
             check += 1;
             $("#errortel").remove();

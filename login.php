@@ -172,7 +172,7 @@
       let recf=	/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i;
       let check2=0;
       if(!cf.val().match(recf)){
-        check2+=1
+        check2+=1;
         $("#errorcf").remove();
         cf.css("border-color","red");
         cf.after('<p id="errorcf" style="color:red;">Compilare correttamente il cf</p>');
@@ -180,8 +180,8 @@
         cf.css("border-color","black");
         $("#errorcf").remove();  
       }
-      if(piva.val().lenght <11 && piva.val().lenght >11 ){
-        check2+=1
+      if(piva.val().length <11 || piva.val().length >11 ){
+        check2+=1;
         $("#errorpiva").remove();
         piva.css("border-color","red");
         piva.after('<p id="errorpiva" style="color:red;">Compilare correttamente la partita iva</p>');
@@ -191,7 +191,7 @@
         $("#errorpiva").remove();
       }
       if(data.val().length<10){
-        check2+=1
+        check2+=1;
         $("#errordata").remove();
         data.css("border-color","red");
         data.after('<p id="errordata" style="color:red;">Compilare correttamente il cf</p>');
@@ -200,7 +200,7 @@
         $("#errordata").remove();
       }
       if(nome.val().length<1){
-        check2+=1
+        check2+=1;
         $("#errorname1").remove();
         nome.css("border-color","red");  
         nome.after('<p id="errorname1" style="color:red;">Compilare il campo nome</p>');
@@ -209,7 +209,7 @@
         $("#errorname1").remove();
       }
        if(!nome.val().match(re)){
-        check2+=1
+        check2+=1;
         $("#errorname2").remove();
         nome.css("border-color","red");  
         nome.after('<p id="errorname2" style="color:red;">Sono consentite solo le lettere nel nome</p>');
@@ -218,7 +218,7 @@
         $("#errorname2").remove();
       }
        if(cognome.val().length<1){
-        check2+=1
+        check2+=1;
         $("#errorsurname1").remove();
         cognome.css("border-color","red");  
         cognome.after('<p id="errorsurname1" style="color:red;">Compilare il campo cognome</p>');
@@ -227,7 +227,7 @@
         $("#errorsurname1").remove();
       }
        if(!cognome.val().match(re)){
-        check2+=1
+        check2+=1;
         $("#errorsurname2").remove();
         cognome.css("border-color","red");  
         cognome.after('<p id="errorsurname2" style="color:red;">Sono consentite solo le lettere nel cognome</p>');
@@ -236,7 +236,7 @@
         $("#errorsurname2").remove();
       }
        if(azienda.val().length<1){
-        check2+=1
+        check2+=1;
         $("#errorazienda1").remove();
         azienda.css("border-color","red");  
         azienda.after('<p id="errorazienda1" style="color:red;">Compilare il campo azienda</p>');
@@ -245,7 +245,7 @@
         $("#errorazienda1").remove();
       }
        if(!azienda.val().match(re)){
-        check2+=1
+        check2+=1;
         $("#errorazienda2").remove();
         azienda.css("border-color","red");  
         azienda.after('<p id="errorazienda2" style="color:red;">Sono consentite solo le lettere per l`azienda</p>');
@@ -254,7 +254,7 @@
         $("#errorazienda2").remove();
       }
       if(!tel.val().match(retel)){
-        check2+=1
+        check2+=1;
         $("#errortel").remove();
         tel.css("border-color","red");
         tel.after('<p id="errortel" style="color:red;">Inserire un numero di telefono valido</p>');
