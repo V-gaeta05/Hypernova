@@ -55,26 +55,6 @@
   <tbody id="main_table_body">
     
   </tbody>
-</table>
-
-            <table class="table" id="main_table">
-        <thead>
-            <tr>
-            <th scope="col">#</th>
-            <th scope="col">Codice Fattura</th>
-            <th scope="col">ID socio</th>
-            <th scope="col">Nome cliente</th>
-            <th scope="col">Stato pagamento</th>
-            <th scope="col">Data emissione</th>
-            <th scope="col">Data pagamento</th>
-            <th scope="col">Valore</th>
-            <th scope="col">ID cliente</th>
-            <th scope="col">Dettagli</th>
-            </tr>
-        </thead>
-        <tbody id="main_table_body">
-            
-        </tbody>
         </table>
     </div>
             <!-- Optional JavaScript -->
