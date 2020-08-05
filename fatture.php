@@ -34,7 +34,7 @@
                 $codeFattura .= $characters[rand(0, $charactersLength-1)];
             }
 
-            $sql = "SELECT Id, Nome FROM hy_clienti WHERE id_socio = '$id' ORDER BY Nome";
+            $sql = "SELECT Id, Nome FROM hy_clienti WHERE id_socio = '$id_user' ORDER BY Nome";
 
             $query = $conn->query($sql);
 
