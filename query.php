@@ -1,6 +1,7 @@
 <?php
     require('class.php');
     require('db.php');
+    include('session.php');
     $login=new Login($conn);
     if(isset($_POST['check_log'])){
         $id=$login->logUtente();
@@ -12,4 +13,9 @@
     if(isset($_POST['check_reg'])){
         $registra= new Registrazione();
         $registra-> RegistrazioneUtente();
+    }
+    if(isset($_POST['check_agg_cliente'])){
+        $aggiungi= new AggCliente($conn);
+        $aggiungi->aggCliente();
+
     }

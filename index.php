@@ -119,7 +119,7 @@ $(document).ready( function () {
 and the background color of body to white */
     function closeNav() {
         document.getElementById("mySidenav").style.width = "0%";
-        document.getElementById("main").style.marginLeft = "5%";
+        document.getElementById("main").style.marginLeft = "2%";
         
         
     }
