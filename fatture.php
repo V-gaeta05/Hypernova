@@ -57,96 +57,112 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
 
     <title>Hello, world!</title>
   </head>
-  <body>
+  <body><div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="index.php">Home</a>
+        <a href="clienti.php">Aggiungi Cliente</a>
+        <a href="index.php?logout" ><img class="modicon" src="https://img.icons8.com/wired/32/000000/safe-out.png"/>LogOut</a>
+        
+    </div>
 
-<!-- HTML FOR SHOW ELEMENT -->
-  <?php if ($_GET['method'] == 'dettagli') { ?>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col" colspan="2">Informazioni Fattura</th>
-                <th scope="col" colspan="2">Informazioni Soci</th>
-                <th scope="col" colspan="2">Informazioni Cliente</th>
-            </tr>
-            <tr>
-                <th scope="col">ID Fattura</th>
-                <th scope="col">Codice univoco</th>
-                <th scope="col">ID socio</th>
-                <th scope="col">Nome Socio</th>
-                <th scope="col">ID cliente</th>
-                <th scope="col">Nome cliente</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td scope="col" ><?php echo $id; ?></td>
-                <td scope="col"><?php echo $code; ?></td>
-                <td scope="col" ><?php echo $id_socio; ?></td>
-                <td scope="col" >NOME_SOCIO</td>
-                <td scope="col" ><?php echo $id_cliente; ?></td>
-                <td scope="col" >NOME_CLIENTE</td>
-            </tr>
-            <tr>
-                <th scope="col">Data Emissione</th>
-                <th scope="col">Data Pagamento</th>
-            </tr>
-            <tr>
-                <td scope="col" ><?php echo $data_emissione; ?></td>
-                <td scope="col"><?php echo $data_pagamento; ?></td>
-            </tr>
-            <tr>
-                <th scope="col" colspan="2">Stato Pagamento</th>
-            </tr>
-            <tr>
-                <td scope="col" colspan="2"><?php echo $stato_pagamento;?></td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- Use any element to open the sidenav -->
+    <span id="hamburger" onclick="openNav()"><button  class="btn btn"><img src="https://img.icons8.com/ios-filled/35/000000/menu.png"/></button></span>
+       
+        
+   
+    <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+    <div id="main">
 
-    <button onclick="go_pagamento('<?php echo $code;?>')">Vai al pagamento</button>
+        <!-- HTML FOR SHOW ELEMENT -->
+        <?php if ($_GET['method'] == 'dettagli') { ?>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="2">Informazioni Fattura</th>
+                        <th scope="col" colspan="2">Informazioni Soci</th>
+                        <th scope="col" colspan="2">Informazioni Cliente</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">ID Fattura</th>
+                        <th scope="col">Codice univoco</th>
+                        <th scope="col">ID socio</th>
+                        <th scope="col">Nome Socio</th>
+                        <th scope="col">ID cliente</th>
+                        <th scope="col">Nome cliente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="col" ><?php echo $id; ?></td>
+                        <td scope="col"><?php echo $code; ?></td>
+                        <td scope="col" ><?php echo $id_socio; ?></td>
+                        <td scope="col" >NOME_SOCIO</td>
+                        <td scope="col" ><?php echo $id_cliente; ?></td>
+                        <td scope="col" >NOME_CLIENTE</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Data Emissione</th>
+                        <th scope="col">Data Pagamento</th>
+                    </tr>
+                    <tr>
+                        <td scope="col" ><?php echo $data_emissione; ?></td>
+                        <td scope="col"><?php echo $data_pagamento; ?></td>
+                    </tr>
+                    <tr>
+                        <th scope="col" colspan="2">Stato Pagamento</th>
+                    </tr>
+                    <tr>
+                        <td scope="col" colspan="2"><?php echo $stato_pagamento;?></td>
+                    </tr>
+                </tbody>
+            </table>
 
-<!-- HTML FOR SHOW CREATE FORM -->
-  <?php } else if ($_GET['method'] == 'create') { ?>
-    <form>
-        <div id="form">
-            <div class="form-group">
-                <label for="codiceFattura">Codice Fattura</label>
-                <input type="text" class="form-control" id="codiceFattura"  value="<?php echo $codeFattura; ?>" readonly>
-            </div>
-            <div class="form-group">
-                <label for="causaleFattura">Causale</label>
-                <textarea class="form-control" id="causaleFattura" placeholder="Causale"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="valoreFattura">Valore Fattura</label>
-                <input type="number" class="form-control" id="valoreFattura" min="1" step="any" placeholder="1">
-            </div>
-            <div class="form-group">
-                <label for="clienteFattura">Cliente</label>
-                <select id="clienteFattura" class="form-control">
-                    <option selected value=""></option>
-                    <?php
-                    $option = '';
-                    foreach ($query as $cliente) {
-                        $option .= '<option value="'.$cliente['Id'].'">'.$cliente['Nome'].'</option>';
-                    }
-                    echo $option;
-                    ?>
-                </select>
-            </div>
-        </div>
-    </form>
-    <button type="submit" class="btn btn-primary" onclick="crea_fattura()">Submit</button>
-  <?php }  else if ($_GET['method'] == 'summary') {?>
-    <h1>Codice Fattura:</h1>
-    <p><?php echo $_GET['code']; ?></p>
-    <h1>ID Fattura:</h1>
-    <p><?php echo $_GET['id_fattura']; ?></p>
+            <button onclick="go_pagamento('<?php echo $code;?>')">Vai al pagamento</button>
 
-  <?php } ?>
+        <!-- HTML FOR SHOW CREATE FORM -->
+        <?php } else if ($_GET['method'] == 'create') { ?>
+            <form>
+                <div id="form">
+                    <div class="form-group">
+                        <label for="codiceFattura">Codice Fattura</label>
+                        <input type="text" class="form-control" id="codiceFattura"  value="<?php echo $codeFattura; ?>" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="causaleFattura">Causale</label>
+                        <textarea class="form-control" id="causaleFattura" placeholder="Causale"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="valoreFattura">Valore Fattura</label>
+                        <input type="number" class="form-control" id="valoreFattura" min="1" step="any" placeholder="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="clienteFattura">Cliente</label>
+                        <select id="clienteFattura" class="form-control">
+                            <option selected value=""></option>
+                            <?php
+                            $option = '';
+                            foreach ($query as $cliente) {
+                                $option .= '<option value="'.$cliente['Id'].'">'.$cliente['Nome'].'</option>';
+                            }
+                            echo $option;
+                            ?>
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <button type="submit" class="btn btn-primary" onclick="crea_fattura()">Submit</button>
+        <?php }  else if ($_GET['method'] == 'summary') {?>
+            <h1>Codice Fattura:</h1>
+            <p><?php echo $_GET['code']; ?></p>
+            <h1>ID Fattura:</h1>
+            <p><?php echo $_GET['id_fattura']; ?></p>
+
+        <?php } ?>
+  </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -156,6 +172,25 @@
 </html>
 
 <script>
+$(document).ready( function () {
+    
+    closeNav();
+} );
+function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+        
+        
+    }
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0, 
+and the background color of body to white */
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0%";
+        document.getElementById("main").style.marginLeft = "2%";
+        
+        
+    }
     function crea_fattura() {
         var id_socio = <?php echo $id_user;?>;
         var code = $("#codiceFattura").val();

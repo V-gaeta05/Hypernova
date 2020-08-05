@@ -22,7 +22,8 @@
   <body>
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-       
+        <a href="index.php">Home</a>
+        <a href="clienti.php">Aggiungi Cliente</a>
         <a href="index.php?logout" ><img class="modicon" src="https://img.icons8.com/wired/32/000000/safe-out.png"/>LogOut</a>
         
     </div>
