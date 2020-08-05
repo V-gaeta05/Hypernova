@@ -69,6 +69,7 @@
 <script>
 $(document).ready( function () {
     get_fatture();
+    closeNav();
 } );
     function get_fatture() {
         var id = <?php echo $id; ?>;
