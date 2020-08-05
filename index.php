@@ -1,8 +1,7 @@
 <?php
   require_once("session.php");
-  if (isset($_GET)) {
+  if (isset($_SESSION)) {
     $id = $_SESSION['USER_ID'];
-    
   }
 ?>
 
@@ -22,6 +21,7 @@
     <title>Hello, world!</title>
   </head>
   <body>
+<<<<<<< HEAD
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
        
@@ -37,6 +37,28 @@
     <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
     <div id="main">
            
+=======
+    <a href="index.php?logout" style="float: right;"><button class="btn btn-light">LogOut</button></a>
+
+    <table class="table" id="main_table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Codice Fattura</th>
+      <th scope="col">ID socio</th>
+      <th scope="col">Stato pagamento</th>
+      <th scope="col">Data emissione</th>
+      <th scope="col">Data pagamento</th>
+      <th scope="col">Valore</th>
+      <th scope="col">ID cliente</th>
+      <th scope="col">Dettagli</th>
+    </tr>
+  </thead>
+  <tbody id="main_table_body">
+    
+  </tbody>
+</table>
+>>>>>>> e903bdfc8a6c7311a7623628e3fa2d7d67d185bb
 
             <table class="table" id="main_table">
         <thead>
@@ -80,6 +102,7 @@ $(document).ready( function () {
             data: 'id='+id,
             success: function(res) {
                 var data = JSON.parse(res);
+                console.log(data);
                 create_table(data);
                 $('#main_table').DataTable();
             },
@@ -90,7 +113,6 @@ $(document).ready( function () {
     }
 
     function create_table(data) {
-        console.log(data);
         if (data.length>0) {
             var table_body = '';
             for (i=0; i< data.length; i++) {
@@ -98,7 +120,6 @@ $(document).ready( function () {
                             '<th scope="col">'+data[i]['id']+'</th>'+
                             '<td scope="col">'+data[i]['code']+'</td>'+
                             '<td scope="col">'+data[i]['id_socio']+'</td>'+
-                            '<td scope="col">'+data[i]['nome_cliente']+'</td>'+
                             '<td scope="col">'+data[i]['stato_pagamento']+'</td>'+
                             '<td scope="col">'+data[i]['data_emissione']+'</td>'+
                             '<td scope="col">'+data[i]['data_pagamento']+'</td>'+

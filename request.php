@@ -24,8 +24,8 @@
                     $data[] = [
                         'id' => $row['id'],
                         'code' => $row['code'],
+                        'causale' => $row['causale'],
                         'id_socio' => $row['id_socio'],
-                        'nome_cliente' => $row['nome_cliente'],
                         'stato_pagamento' => $row['stato_pagamento'],
                         'data_emissione' => $dateEm,
                         'data_pagamento' => $datePay,
