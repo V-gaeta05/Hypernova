@@ -65,7 +65,7 @@ class Registrazione{
         Codice_fiscale=:Codice_fiscale,
         Azienda=:Azienda,
         Data_di_nascita=:Data_di_nascita,
-        Admin=:Admin");
+        Rank=:Rank");
         $insert->execute(array(
             'Email'=>$email,
             'Password'=>$password,
@@ -76,7 +76,7 @@ class Registrazione{
             'Codice_fiscale'=>$cf,
             'Azienda'=>$azienda,
             'Data_di_nascita'=>$data,
-            'Admin'=>$tipo_utente
+            'Rank'=>$tipo_utente
         ));
         require 'vendor/autoload.php';
         $mail = new PHPMailer(true);
