@@ -71,7 +71,8 @@ require('db.php');
         purchase_units: [{
           amount: {
             value: <?php echo $select['valore']; ?>
-          }
+          },
+          description: <?php echo $select['causale'] ?>
         }]
       });
     },
