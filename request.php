@@ -21,6 +21,18 @@
                     } else {
                         $datePay = '';
                     }
+                    $id_cliente = $row['id_cliente'];
+                    $query = "SELECT Nome FROM hy_clienti WHERE id = $id_cliente";
+
+                    $result2 = $conn->query($query);
+
+                    if ($result2->num_rows >0) {
+                        while($client = $result2->fetch_assoc()) {
+                            $cliente = $client['Nome'];
+                        }
+                    } else {
+                        $cliente = '';
+                    }
                     $data[] = [
                         'id' => $row['id'],
                         'code' => $row['code'],
@@ -30,7 +42,7 @@
                         'data_emissione' => $dateEm,
                         'data_pagamento' => $datePay,
                         'valore' => $row['valore'],
-                        'id_cliente' => $row['id_cliente']
+                        'id_cliente' => $cliente
                     ];
                 }
                 echo json_encode($data);

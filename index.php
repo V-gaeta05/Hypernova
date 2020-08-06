@@ -42,12 +42,11 @@
   <thead>
     <tr>
       <th scope="col">Codice Fattura</th>
-      <th scope="col">ID socio</th>
       <th scope="col">Stato pagamento</th>
       <th scope="col">Data emissione</th>
       <th scope="col">Data pagamento</th>
       <th scope="col">Valore</th>
-      <th scope="col">ID cliente</th>
+      <th scope="col">Cliente</th>
       <th scope="col">Dettagli</th>
     </tr>
   </thead>
@@ -80,7 +79,6 @@ $(document).ready( function () {
             data: 'id='+id,
             success: function(res) {
                 var data = JSON.parse(res);
-                console.log(data);
                 create_table(data);
                 $('#main_table').DataTable();
             },
@@ -93,14 +91,22 @@ $(document).ready( function () {
     function create_table(data) {
         if (data.length>0) {
             var table_body = '';
+            var stato = '';
+            
             for (i=0; i< data.length; i++) {
+                if (data[i]['stato_pagamento'] ==  1) {
+                  stato = '<p class="text-success">Pagato</p>';
+                } else if(data[i]['stato_pagamento'] == 0) {
+                  stato = '<p class="text-danger">Non pagato</p>';
+                }
+                var num = parseFloat(data[i]['valore']).toFixed(2);
+                
                 table_body += '<tr>'+
                             '<td scope="col">'+data[i]['code']+'</td>'+
-                            '<td scope="col">'+data[i]['id_socio']+'</td>'+
-                            '<td scope="col">'+data[i]['stato_pagamento']+'</td>'+
+                            '<td scope="col">'+stato+'</td>'+
                             '<td scope="col">'+data[i]['data_emissione']+'</td>'+
                             '<td scope="col">'+data[i]['data_pagamento']+'</td>'+
-                            '<td scope="col">'+data[i]['valore']+'</td>'+
+                            '<td scope="col">'+num+' €</td>'+
                             '<td scope="col">'+data[i]['id_cliente']+'</td>'+
                             '<td><a href="fatture.php?id='+data[i]['code']+'&method=dettagli">dettagli</a></td>'+
                             '</tr>';
@@ -109,6 +115,8 @@ $(document).ready( function () {
         
         $('#main_table_body').html(table_body);
     }
+
+
     function openNav() {
         document.getElementById("mySidenav").style.width = "250px";
         document.getElementById("main").style.marginLeft = "250px";
