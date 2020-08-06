@@ -8,8 +8,10 @@
             setcookie('RANK', '', time()-3600);
             setcookie('TIME','', time()-3600);
             session_destroy();
+        } else {
+            setcookie('TIME', time());
         }
-        setcookie('TIME', time());
+        
     
     } else {
         session_destroy();
