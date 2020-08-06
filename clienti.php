@@ -27,7 +27,7 @@
     </div>
 
     <!-- Use any element to open the sidenav -->
-    <span id="hamburger" style="position: fixed; z-index: 1; top: 0;overflow-x: hidden;" onclick="openNav()"><button  class="btn btn"><img src="https://img.icons8.com/ios-filled/35/000000/menu.png"/></button></span>
+    <span id="hamburger"  onclick="openNav()"><button  class="btn btn"><img src="https://img.icons8.com/ios-filled/35/000000/menu.png"/></button></span>
        
         
    
@@ -58,10 +58,7 @@
 </html>
 
 <script>
-$(document).ready( function () {
-    
-    closeNav();
-} );
+
     function openNav() {
         $("#hamburger").hide();
         document.getElementById("mySidenav").style.width = "250px";
