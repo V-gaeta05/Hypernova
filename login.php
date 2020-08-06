@@ -1,3 +1,11 @@
+<?php
+  
+
+  if (isset($_COOKIE['LOGIN'])) {
+    header("Location: index.php");
+  }
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
