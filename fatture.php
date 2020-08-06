@@ -70,7 +70,7 @@
     </div>
 
     <!-- Use any element to open the sidenav -->
-    <span id="hamburger" onclick="openNav()"><button  class="btn btn"><img src="https://img.icons8.com/ios-filled/35/000000/menu.png"/></button></span>
+    <span id="hamburger" style="position: fixed; z-index: 1; top: 0;overflow-x: hidden;" onclick="openNav()"><button  class="btn btn"><img src="https://img.icons8.com/ios-filled/35/000000/menu.png"/></button></span>
        
         
    
@@ -176,7 +176,8 @@ $(document).ready( function () {
     
     closeNav();
 } );
-function openNav() {
+    function openNav() {
+        $("#hamburge").hide();
         document.getElementById("mySidenav").style.width = "250px";
         document.getElementById("main").style.marginLeft = "250px";
         
@@ -186,8 +187,9 @@ function openNav() {
 /* Set the width of the side navigation to 0 and the left margin of the page content to 0, 
 and the background color of body to white */
     function closeNav() {
+        $("#hamburger").fadeIn('slow');
         document.getElementById("mySidenav").style.width = "0%";
-        document.getElementById("main").style.marginLeft = "2%";
+        document.getElementById("main").style.marginLeft = "3%";
         
         
     }

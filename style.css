@@ -60,3 +60,9 @@
   .distmenù{
       margin-top: 60%;
   }
+  .hamburger{
+    position: fixed; 
+    z-index: 1; 
+    top: 0;
+     overflow-x: hidden;
+  }
