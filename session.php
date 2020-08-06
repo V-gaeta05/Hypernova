@@ -3,6 +3,13 @@
         session_start();
         $_SESSION['USER_ID'] = $_COOKIE['LOGIN'];
         $_SESSION['USER_RANK'] = $_COOKIE['RANK'];
+        if (time() - $_COOKIE['TIME'] > 7200) {
+            setcookie('LOGIN', '', time()-3600);
+            setcookie('RANK', '', time()-3600);
+            setcookie('TIME','', time()-3600);
+            session_destroy();
+        }
+        setcookie('TIME', time());
     
     } else {
         session_destroy();
