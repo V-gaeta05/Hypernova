@@ -10,12 +10,16 @@ require('db.php');
         $code = $_GET['code'];
         $name = $_GET['pagamento_da'];
         $now = date('y-m-d H:i:s');
-        $sql = "UPDATE `hy_fatture` SET `stato_pagamento`= 1,`data_pagamento`= '$now' WHERE code = '$code'";
+        if ($_GET['stato'] == 'COMPLETED') {
+          $sql = "UPDATE `hy_fatture` SET `stato_pagamento`= 1,`data_pagamento`= '$now' WHERE code = '$code'";
 
-        if ($conn->query($sql) === TRUE ) {
+          if ($conn->query($sql) === TRUE ) {
 
+          } else {
+            die("Ahi ahi toppai!");
+          }
         } else {
-          die("Ahi ahi toppai!");
+          die("Pagamento non riuscito.");
         }
       }
       $id_socio = $select['id_socio'];
@@ -55,7 +59,7 @@ require('db.php');
 
         } else if($_GET['method'] == 'pagamento_riuscito') { ?>
           
-        <h1>Pagamento riuscito</h1>
+        <h1>Il pagamento risulta <?php echo $_GET['stato']; ?></h1>
         <p>Grazie mille <?php echo $name; ?> per il tuo pagamento.</p>
         
         <?php }?>
@@ -80,7 +84,8 @@ require('db.php');
       return actions.order.create({
         purchase_units: [{
           amount: {
-            value: <?php echo $select['valore']; ?>
+            value: <?php echo $select['valore']; ?>,
+            currency: 'EUR'
           },
           description: '<?php echo $select['causale']; ?>'+'(Pagamento corrisposto a '+'<?php echo $nomeSocio; ?>'+')'
         }]
@@ -90,8 +95,8 @@ require('db.php');
       // This function captures the funds from the transaction.
       return actions.order.capture().then(function(details) {
         // This function shows a transaction success message to your buyer.
-        
-        window.location = "pagamenti.php?code=<?php echo $code; ?>&method=pagamento_riuscito&pagamento_da="+details.payer.name.given_name;
+
+        window.location = "pagamenti.php?code=<?php echo $code; ?>&method=pagamento_riuscito&pagamento_da="+details.payer.name.given_name+'&stato='+details.status;
       });
     }
   }).render('#paypal-button-container');
