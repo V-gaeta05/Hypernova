@@ -18,6 +18,7 @@
     if (isset($_GET['logout'])) {
         setcookie('LOGIN', '', time()-3600);
         setcookie('RANK', '', time()-3600);
+        setcookie('TIME','', time()-3600);
         session_destroy();
         
     }
