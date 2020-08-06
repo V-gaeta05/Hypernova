@@ -29,7 +29,7 @@
             $charactersLength = strlen($characters);
 
             $codeFattura .= '000'.$_SESSION['USER_ID'].'-';
-            $codeFattura .= date('Ymd').'-';
+            $codeFattura .= date('YmdHis').'-';
             $codeFattura .= sha1(time()).'-';
             for ($i=0; $i<4; $i++) {
                 $codeFattura .= $characters[rand(0, $charactersLength-1)];
