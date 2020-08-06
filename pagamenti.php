@@ -18,6 +18,16 @@ require('db.php');
           die("Ahi ahi toppai!");
         }
       }
+      $id_socio = $select['id_socio'];
+      $sql = "SELECT Nome, Cognome FROM hy_soci WHERE id = $id_socio";
+
+      $result = $conn->query($sql);
+
+      if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          $nomeSocio = $row['Nome'].' '.$row['Cognome'];
+        }
+      }
  }
 ?>
 <!doctype html>
@@ -72,7 +82,7 @@ require('db.php');
           amount: {
             value: <?php echo $select['valore']; ?>
           },
-          description: <?php echo $select['causale'] ?>
+          description: '<?php echo $select['causale']; ?>'+'(Pagamento corrisposto a '+'<?php echo $nomeSocio; ?>'+')'
         }]
       });
     },
