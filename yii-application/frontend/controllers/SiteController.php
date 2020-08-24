@@ -257,11 +257,4 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
-    public function actionHello() {
-        $message = 'Ciao';
-
-        return $this->render('hello',[
-            'msg' => $message,
-        ]);
-    }
 }
