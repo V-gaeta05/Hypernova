@@ -4,6 +4,7 @@
 echo Yii::$app->user->getId();
 
 $this->title = 'My Yii Application';
+if(Yii::$app->user->isGuest){
 ?>
 <div class="site-index">
 
@@ -52,3 +53,6 @@ $this->title = 'My Yii Application';
 
     </div>
 </div>
+<?php }else{ ?>
+
+<?php } ?>
