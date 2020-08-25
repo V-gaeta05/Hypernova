@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
+echo Yii::$app->user->getId();
 
 $this->title = 'My Yii Application';
 ?>
