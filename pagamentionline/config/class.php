@@ -94,10 +94,8 @@
         public function setChar($str, $index , $lenght){
             $str = h($str);
             if (strlen($str) > $lenght){
-                $this->msgError = [
-                    $index => 1,
-                ];
-                return $this->msgError; 
+                $this->msgError[$index] = 1;
+                return 0; 
             } else {
                 return $str;
             }

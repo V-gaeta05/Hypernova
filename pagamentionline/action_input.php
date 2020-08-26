@@ -72,6 +72,9 @@
         }
 
         $payment = new Payment($id_coop, $nome_coop, $id_socio, $cod_cliente_infinity, $nome, $cognome, $cod_prestazione, $prestazione, $importo, $status, $messaggi);
+        
+        $errori = $payment->getError();
+        
         $data = $payment->dataEmissione();
         $codePayment = $payment->creazioneCodicePagamento();
 
