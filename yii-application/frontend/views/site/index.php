@@ -55,7 +55,9 @@ if(Yii::$app->user->isGuest){
 </div>
 <?php }else{ ?>
     <div id="paypal-button-container"></div>
+    <button id="checkout-button">Checkout</button>
 <?php } ?>
+<script src="https://js.stripe.com/v3/"></script>
 <script
     src="https://www.paypal.com/sdk/js?client-id=AW2t8HdbPQ17rEBOimuBMQKKIei1xXIiR3cSEBDybdy0gdMksYx40KMtM1RO6WytiH8yYnhAxZRHlTb4"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
     </script>
