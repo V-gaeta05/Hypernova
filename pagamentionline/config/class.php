@@ -3,7 +3,7 @@
     use PHPMailer\PHPMailer\Exception;
 
     class SandEmail {
-        public function sendEmail(){
+        public function sendEmail($link, $email_cliente){
             require 'vendor/autoload.php';
             $mail = new PHPMailer(true);
             try{
@@ -31,13 +31,13 @@
             
               
                 $mail->Setfrom($eM_username, "Lavoro");
-                $mail->addAddress($email2);     // Add a recipient
+                $mail->addAddress($email_clienete);     // Add a recipient
                 $mail->isHTML(true);
                 $mail->Subject= '';
-                $mail->Body= 'Attiva il tuo account:
-                <a href="localhost/Gestionale_tennis2.0/index.php"> Attiva</a>';
+                $mail->Body= '
+                <a href="'.$link.'"> Vai al pagamento</a>';
                 $mail->send();
-                header('location:login.php?success');
+                
             }catch(Exception $e){
             echo 'errore';
             }
