@@ -75,24 +75,40 @@
         
         $errori = $payment->getError();
         
-        $data = $payment->dataEmissione();
-        $codePayment = $payment->creazioneCodicePagamento();
-
-        $db = new Db($conn);
-
-        $sql = "INSERT INTO pagamenti (id_coop, nome_coop, id_socio, cod_cliente_infinity, nome, cognome, cod_prestazione, prestazione, importo, status, messaggi, data_emissione, cod_pagamento) 
-        VALUES ('$id_coop', '$nome_coop', '$id_socio', '$cod_cliente_infinity', '$nome', '$cognome', '$cod_prestazione', '$prestazione', '$importo', '$status', '$messaggi', '$data', '$codePayment')";
-
-        $response = $db->insert($sql);
-
-        if( $response['risultato'] == 1) {
-            $paymentLink = $payment->generateLink($codePayment);
-
-        } else if ($response['risultato'] == 0) {
-            die("Impossibile inserire il risultato nel database.");
+        $checkerror = 0;
+        
+        foreach ($errori as $key=>$errore){
+           
+            if ($errori[$key] == 1){
+               
+                $checkerror += 1;
+                echo json_encode($errori);
+                
+            
+            }
+            
         }
+        if ($checkerror == 0){
+            $data = $payment->dataEmissione();
+            $codePayment = $payment->creazioneCodicePagamento();
 
-        echo $paymentLink;
+            $db = new Db($conn);
+
+            $sql = "INSERT INTO pagamenti (id_coop, nome_coop, id_socio, cod_cliente_infinity, nome, cognome, cod_prestazione, prestazione, importo, status, messaggi, data_emissione, cod_pagamento) 
+            VALUES ('$id_coop', '$nome_coop', '$id_socio', '$cod_cliente_infinity', '$nome', '$cognome', '$cod_prestazione', '$prestazione', '$importo', '$status', '$messaggi', '$data', '$codePayment')";
+
+            $response = $db->insert($sql);
+
+            if( $response['risultato'] == 1) {
+                $paymentLink = $payment->generateLink($codePayment);
+
+            } else if ($response['risultato'] == 0) {
+                die("Impossibile inserire il risultato nel database.");
+            }
+
+            echo $paymentLink;
+        } 
+      
     } else {
         die("Errore nella ricezione dei dati.");
     }
