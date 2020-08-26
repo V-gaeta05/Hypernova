@@ -1,7 +1,6 @@
 <?php
 
-    require_once('config/db.php');
-    require_once('config/class.php');
+    require_once('config/config.php');
 
     if( isset($_POST)&&(!empty($_POST)) ) {
         if ( isset($_POST['id_coop'])&&(!empty($_POST['id_coop'])) ) {
@@ -16,7 +15,7 @@
             die("Nessun nome_coop inserito");
         }
 
-        if ( isset($_POST['id_socio'])&&(!empty($_POST['id_docio'])) ) {
+        if ( isset($_POST['id_socio'])&&(!empty($_POST['id_socio'])) ) {
             $id_socio = $_POST['id_socio'];
         } else {
             die("Nessun id_socio inserito");
@@ -78,6 +77,17 @@
 
         $sql = "INSERT INTO pagamenti (id_coop, nome_coop, id_socio, cod_cliente_infinity, nome, cognome, cod_prestazione, prestazione, importo, status, messaggi, data_emissione, cod_pagamento) 
         VALUES ('$id_coop', '$nome_coop', '$id_socio', '$cod_cliente_infinity', '$nome', '$cognome', '$cod_prestazione', '$prestazione', '$importo', '$status', '$messaggi', '$data', '$codePayment')";
+
+        $response = $db->insert($sql);
+
+        if( $response['risultato'] == 1) {
+            $paymentLink = $payment->generateLink($codePayment);
+
+        } else if ($response['risultato'] == 0) {
+            die("Impossibile inserire il risultato nel database.");
+        }
+
+        echo $paymentLink;
     } else {
         die("Errore nella ricezione dei dati.");
     }

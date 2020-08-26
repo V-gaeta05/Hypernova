@@ -32,8 +32,9 @@
         }
 
         public function dataEmissione() {
-            $data = data();
-            return $data;
+            $data = new DateTime();
+
+            return $data->format('Y-m-d H:i:s');
         }
 
         public function creazioneCodicePagamento() {
@@ -49,6 +50,12 @@
             return $codeFattura;
         }
 
+        public function generateLink($codepayment) {
+
+            $link = PROJECT_PATH.'/payment.php?method=external_payment&payment_code='.$codepayment;
+            return $link;
+        }
+
     }
 
     class Db {
@@ -62,12 +69,12 @@
             $result = $this->db->query($sql);
             if ($result) {
                 $esito = [
-                    'risultato' => 'inserito',
-                    'last_id'   => $this->db->lastInsertId(),
+                    'risultato' => 1,
+                    'last_id'   => $this->db->insert_id,
                 ];
             } else {
                 $esito = [
-                    'risultato' => 'errore',
+                    'risultato' => 0,
                     'last_id'   => '',
                 ];
             }
@@ -82,9 +89,9 @@
         public function update($sql) {
             $result = $this->db->query($sql);
             if($result) {
-                $esito = 'aggiornato';
+                $esito = 1;
             } else {
-                $esito = 'errore';
+                $esito = 0;
             }
             return $esito;
         }
