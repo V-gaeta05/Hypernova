@@ -58,19 +58,67 @@
         private $importo;
         private $status;
         private $messaggi;
+        private $msgError = [
+            'nome_coop'            => 0,
+            'cod_cliente_infinity' => 0,
+            'nome'                 => 0,
+            'cognome'              => 0,
+            'cod_prestazione'      => 0,
+            'prestazione'          => 0,
+            'status'               => 0,
+            'messaggi'             => 0,
+        ];
 
         function __construct($id_coop, $nome_coop, $id_socio, $cod_cliente_infinity, $nome, $cognome, $cod_prestazione, $prestazione, $importo, $status, $messaggi) {
-            $this->id_coop = $id_coop;
-            $this->nome_coop = $nome_coop;
-            $this->id_socio = $id_socio;
-            $this->cod_cliente_infinity = $cod_cliente_infinity;
-            $this->nome = $nome;
-            $this->cognome = $cognome;
-            $this->cod_prestazione = $cod_prestazione;
-            $this->prestazione = $prestazione;
-            $this->importo = $importo;
-            $this->status = $status;
-            $this->messaggi = $messaggi;
+            $this->id_coop = $this->setId($id_coop);
+            $this->nome_coop = $this->setChar($nome_coop,'nome_coop', 255);
+            $this->id_socio = $this->setId($id_socio);
+            $this->cod_cliente_infinity = $this->setChar($cod_cliente_infinity,'cod_cliente_infinity', 255);
+            $this->nome = $this->setName($nome,'nome', 255);
+            $this->cognome = $this->setName($cognome,'cognome', 255);
+            $this->cod_prestazione = $this->setChar($cod_prestazione,'cod_prestazione', 255);
+            $this->prestazione = $this->setChar($prestazione,'prestazione', 500);
+            $this->importo = $this->setAmmount($importo);
+            $this->status = $this->setChar($status,'status', 255);
+            $this->messaggi = $this->setChar($messaggi,'messaggi', 255);
+        }
+
+        public function getError(){
+            return $this->msgError;
+        }
+
+        public function setId($id_coop){
+            return h($id_coop);
+        }
+
+        public function setChar($str, $index , $lenght){
+            $str = h($str);
+            if (strlen($str) > $lenght){
+                $this->msgError = [
+                    $index => 1,
+                ];
+                return $this->msgError; 
+            } else {
+                return $str;
+            }
+        }
+
+        public function setName($str, $index , $lenght){
+            $str = h($str);
+            if (strlen($str) > $lenght){
+                $this->msgError = [
+                    $index => 1,
+                ];
+                return $this->msgError; 
+            } else {
+                $str = ucwords($str); 
+                return $str;
+            }
+        }
+
+        public function setAmmount($importo){
+            $importo = $importo * 104 / 100;
+            return $importo;
         }
 
         public function dataEmissione() {
@@ -137,4 +185,8 @@
             }
             return $esito;
         }
+    }
+
+    function h($string){
+        return htmlspecialchars($string);
     }
