@@ -1,6 +1,48 @@
 <?php
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
 
     class SandEmail {
+        public function sendEmail(){
+            require 'vendor/autoload.php';
+            $mail = new PHPMailer(true);
+            try{
+                $eM_Host     = "smtp.web.de";		
+                $eM_Port     = 587;
+                $eM_Auth     = true;
+                $eM_Secure   = "tls";
+                $eM_username = "CAMBIAMI@web.de";
+                $eM_password = "CAMBIAMI";
+
+                $mail = new PHPMailer();
+
+                $mail->SMTPDebug = 4;			// attiva log dell'invio, ELIMINARE quando si mette in "produzione"
+                $mail->Debugoutput = "error_log";	// scrive messaggi di errore nel log di PHP, si può lasciare sempre
+            
+                // impostazione del servizio
+                $mail->IsSMTP();
+            
+                $mail->Host       = $eM_Host;
+                $mail->Port       = $eM_Port;
+                $mail->SMTPAuth   = $eM_Auth;
+                $mail->SMTPSecure = $eM_Secure;
+                $mail->Username   = $eM_username;	// mittente
+                $mail->Password   = $eM_password;
+            
+              
+                $mail->Setfrom($eM_username, "Lavoro");
+                $mail->addAddress($email2);     // Add a recipient
+                $mail->isHTML(true);
+                $mail->Subject= '';
+                $mail->Body= 'Attiva il tuo account:
+                <a href="localhost/Gestionale_tennis2.0/index.php"> Attiva</a>';
+                $mail->send();
+                header('location:login.php?success');
+            }catch(Exception $e){
+            echo 'errore';
+            }
+        }
+
 
     }
 
