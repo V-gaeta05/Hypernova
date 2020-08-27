@@ -2,7 +2,7 @@
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
     
-    require_once('config/config.php');
+    require_once('../config/config.php');
     $err = new Errori;
     if( isset($_POST)&&(!empty($_POST)) ) {
         if ( isset($_POST['id_coop'])&&(!empty($_POST['id_coop'])) ) {
@@ -131,11 +131,13 @@
 
             if( $response['risultato'] == 1) {
                 $paymentLink = $payment->generateLink($codePayment);
+                $mail = new SandEmail();
+                $mail->sendEmail($paymentLink, $email);
 
             } else if ($response['risultato'] == 0) {
                 die("Impossibile inserire il risultato nel database.");
             }
-
+            
             echo json_encode($err->getError()); 
         } else {
             echo json_encode($err->getError());

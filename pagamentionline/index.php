@@ -43,7 +43,7 @@ Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta
         var email = 'dioclo@gmail.com';
         $.ajax({
             method: 'POST',
-            url: 'action_input.php',
+            url: 'action/action_input.php',
             data: 'id_coop='+id_coop+'&nome_coop='+nome_coop+'&id_socio='+id_socio+'&cod_cliente_infinity='+cod_cliente_infinity+'&nome='+nome+'&cognome='+cognome+'&cod_prestazione='+cod_prestazione+'&importo='+importo+'&email='+email,
             success: function(res) {
                 console.log(res);

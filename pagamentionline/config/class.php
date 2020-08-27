@@ -31,7 +31,7 @@
             
               
                 $mail->Setfrom($eM_username, "Lavoro");
-                $mail->addAddress($email_clienete);     // Add a recipient
+                $mail->addAddress($email_cliente);     // Add a recipient
                 $mail->isHTML(true);
                 $mail->Subject= '';
                 $mail->Body= '
