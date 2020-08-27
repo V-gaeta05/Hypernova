@@ -81,16 +81,16 @@
                 </tbody>
             </table>
         </div>
-        <?php if ( $$result['stato_pagamento'] == 0 ) {
+        <?php if ( $result['stato_pagamento'] == 0 ) {
 
         ?>
 
-            <div id="paypal-button-container"></div>
+            <div class='text-center'><div id="paypal-button-container"></div><div>
         <?php 
                 }  
         
             } else if ( $_GET['method'] == 'pagamento_riuscito'){ ?>
-            <h1 class="bg-succes text-white"> Grazie <?php echo $_GET['pagamento_da']; ?> per aver effettuato il pagamento </h1>
+            <span class="text-center"><h1 class="bg-success text-white"> Grazie <?php echo $_GET['pagamento_da']; ?> per aver effettuato il pagamento </h1></span>
         <?php } ?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -110,7 +110,7 @@
             value: <?php echo $result['importo']; ?>,
             currency: 'EUR'
           },
-          description: '<?php echo $result['prestazione'].'<br>Codice prestazione: '.$result['cod_prestazione'].'<br>'; ?>'+'(Pagamento corrisposto a '+'<?php echo $result['nome'].' '.$result['cognome'].'('.$result['id_socio'].')'; ?>'+')<br>('+'<?php echo $result['cod_cliente_infinity']; ?>'+')'
+          description: '<?php echo $result['prestazione'].' Codice prestazione: '.$result['cod_prestazione'].' '; ?>'+'(Pagamento corrisposto a '+'<?php echo $result['nome'].' '.$result['cognome'].'('.$result['id_socio'].')'; ?>'+') ('+'<?php echo $result['cod_cliente_infinity']; ?>'+')'
         }]
       });
     },
