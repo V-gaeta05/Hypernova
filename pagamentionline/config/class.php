@@ -4,7 +4,7 @@
 
     class SandEmail {
         public function sendEmail($link, $email_cliente){
-            require 'vendor/autoload.php';
+            require '../vendor/autoload.php';
             $mail = new PHPMailer(true);
             try{
                 $eM_Host     = "smtp.web.de";		

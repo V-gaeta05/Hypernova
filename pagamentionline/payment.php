@@ -17,6 +17,8 @@
             $data = new DateTime($result['data_pagamento']);
             $data_pagamento = ($result['data_pagamento'] == '') ? '' : $data->format("d-m-Y H:i:s");
 
+            
+
         }
     
 
@@ -74,19 +76,55 @@
                     <tr class="bg-light">
                         <td><?php echo $data_emissione;?></td>
                         <td><?php echo $data_pagamento;?></td>
-                        <td><?php $is_payed = ($result['cod_prestazione'] == 1) ? '<p class="text-success">Pagato</p>' : '<p class="text-danger">Non Pagato</p>'; echo $is_payed;?></td>
+                        <td><?php $is_payed = ($result['stato_pagamento'] == 1) ? '<p class="text-success">Pagato</p>' : '<p class="text-danger">Non Pagato</p>'; echo $is_payed;?></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-       <?php } ?>
+        <?php if ( $$result['stato_pagamento'] == 0 ) {
+
+        ?>
+
+            <div id="paypal-button-container"></div>
+        <?php 
+                }  
+        
+            } else if ( $_GET['method'] == 'pagamento_riuscito'){ ?>
+            <h1 class="bg-succes text-white"> Grazie <?php echo $_GET['pagamento_da']; ?> per aver effettuato il pagamento </h1>
+        <?php } ?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AW2t8HdbPQ17rEBOimuBMQKKIei1xXIiR3cSEBDybdy0gdMksYx40KMtM1RO6WytiH8yYnhAxZRHlTb4"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.</script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>
+<script>
+  paypal.Buttons({
+    createOrder: function(data, actions) {
+      // This function sets up the details of the transaction, including the amount and line item details.
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: <?php echo $result['importo']; ?>,
+            currency: 'EUR'
+          },
+          description: '<?php echo $result['prestazione'].'<br>Codice prestazione: '.$result['cod_prestazione'].'<br>'; ?>'+'(Pagamento corrisposto a '+'<?php echo $result['nome'].' '.$result['cognome'].'('.$result['id_socio'].')'; ?>'+')<br>('+'<?php echo $result['cod_cliente_infinity']; ?>'+')'
+        }]
+      });
+    },
+    onApprove: function(data, actions) {
+      // This function captures the funds from the transaction.
+      return actions.order.capture().then(function(details) {
+        // This function shows a transaction success message to your buyer.
+
+        window.location = "payment.php?code=<?php echo $code; ?>&method=pagamento_riuscito&pagamento_da="+details.payer.name.given_name+'&stato='+details.status;
+      });
+    }
+  }).render('#paypal-button-container');
+  //This function displays Smart Payment Buttons on your web page.
+</script>
 
 <?php
 
