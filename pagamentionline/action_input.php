@@ -106,7 +106,7 @@
                 die("Impossibile inserire il risultato nel database.");
             }
 
-            echo $paymentLink;
+            echo 'ciao';
         } 
       
     } else {
