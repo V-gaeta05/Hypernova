@@ -1,7 +1,5 @@
-
 <?php
     require_once('config/config.php');
-   
 ?>
 
 <!doctype html>
@@ -31,6 +29,7 @@ Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta
 
 
 <script type="text/javascript">
+    
     function vaiii() {
         var id_coop = '1';
         var nome_coop = '1';
