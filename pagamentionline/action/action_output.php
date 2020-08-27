@@ -6,7 +6,7 @@ function sendData(){
         method: 'POST',
         data:'stato='+<?php echo $_GET['stato']; ?>,
         success: function(res){
-            
+
         } 
     })
 }
@@ -21,10 +21,11 @@ require_once('../config/config.php');
 if( isset($_GET['method']) && $_GET['method'] == 'pagamento_riuscito' ){
     
     $code = $_GET['code'];
+    $date = new DateTime();
 
     $db = new Db($conn);
     
-    $sql="UPDATE pagamenti SET stato_pagamento=1 WHERE cod_pagamento=$code";
+    $sql="UPDATE pagamenti SET stato_pagamento=1, data_pagamento=$data  WHERE cod_pagamento=$code";
     $result = $db->update($sql);
 
     if($result == 1){
