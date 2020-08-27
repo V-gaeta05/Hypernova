@@ -94,7 +94,7 @@
         <?php } ?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://www.paypal.com/sdk/js?client-id=AW2t8HdbPQ17rEBOimuBMQKKIei1xXIiR3cSEBDybdy0gdMksYx40KMtM1RO6WytiH8yYnhAxZRHlTb4"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.</script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AW2t8HdbPQ17rEBOimuBMQKKIei1xXIiR3cSEBDybdy0gdMksYx40KMtM1RO6WytiH8yYnhAxZRHlTb4&currency=EUR"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.</script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -118,8 +118,16 @@
       // This function captures the funds from the transaction.
       return actions.order.capture().then(function(details) {
         // This function shows a transaction success message to your buyer.
+        $.ajax({
+            url: "action/action_autput.php?code=<?php echo $code; ?>&method=pagamento_riuscito&stato="+details.status,
+            success: function(res){
+                res = JSON.parse(res);
+                if (res == 'COMPLETED'){
+                    window.location = "payment.php?code=<?php echo $code; ?>&method=pagamento_riuscito&pagamento_da="+details.payer.name.given_name+"&stato="+details.status;
+                }
+            }
 
-        window.location = "payment.php?code=<?php echo $code; ?>&method=pagamento_riuscito&pagamento_da="+details.payer.name.given_name+'&stato='+details.status;
+        });
       });
     }
   }).render('#paypal-button-container');
