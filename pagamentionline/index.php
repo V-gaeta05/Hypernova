@@ -33,17 +33,18 @@ Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta
 <script type="text/javascript">
     function vaiii() {
         var id_coop = '1';
-        var nome_coop = 'fabbrica42Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta deleniti laborum vitae a sed nam ratione autem velit aut accusantium impedit corporis iure accusamus, nobis ut doloremque? Quam?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta deleniti laborum vitae a sed nam ratione autem velit aut accusantium impedit corporis iure accusamus, nobis ut doloremque? Quam?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta deleniti laborum vitae a sed nam ratione autem velit aut accusantium impedit corporis iure accusamus, nobis ut doloremque? Quam?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta deleniti laborum vitae a sed nam ratione autem velit aut accusantium impedit corporis iure accusamus, nobis ut doloremque? Quam?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta deleniti laborum vitae a sed nam ratione autem velit aut accusantium impedit corporis iure accusamus, nobis ut doloremque? Quam?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta deleniti laborum vitae a sed nam ratione autem velit aut accusantium impedit corporis iure accusamus, nobis ut doloremque? Quam?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta deleniti laborum vitae a sed nam ratione autem velit aut accusantium impedit corporis iure accusamus, nobis ut doloremque? Quam?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta deleniti laborum vitae a sed nam ratione autem velit aut accusantium impedit corporis iure accusamus, nobis ut doloremque? Quam?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta deleniti laborum vitae a sed nam ratione autem velit aut accusantium impedit corporis iure accusamus, nobis ut doloremque? Quam?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta deleniti laborum vitae a sed nam ratione autem velit aut accusantium impedit corporis iure accusamus, nobis ut doloremque? Quam?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta deleniti laborum vitae a sed nam ratione autem velit aut accusantium impedit corporis iure accusamus, nobis ut doloremque? Quam?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta deleniti laborum vitae a sed nam ratione autem velit aut accusantium impedit corporis iure accusamus, nobis ut doloremque? Quam?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta deleniti laborum vitae a sed nam ratione autem velit aut accusantium impedit corporis iure accusamus, nobis ut doloremque? Quam?';
+        var nome_coop = '1';
         var id_socio = '2';
         var cod_cliente_infinity = 'ID954';
         var nome = 'Francesco';
         var cognome = 'Dicandia';
         var cod_prestazione = '3433543';
         var importo = '15000';
+        var email = 'dioclo@gmail.com';
         $.ajax({
             method: 'POST',
             url: 'action_input.php',
-            data: 'id_coop='+id_coop+'&nome_coop='+nome_coop+'&id_socio='+id_socio+'&cod_cliente_infinity='+cod_cliente_infinity+'&nome='+nome+'&cognome='+cognome+'&cod_prestazione='+cod_prestazione+'&importo='+importo,
+            data: 'id_coop='+id_coop+'&nome_coop='+nome_coop+'&id_socio='+id_socio+'&cod_cliente_infinity='+cod_cliente_infinity+'&nome='+nome+'&cognome='+cognome+'&cod_prestazione='+cod_prestazione+'&importo='+importo+'&email='+email,
             success: function(res) {
                 console.log(res);
             }

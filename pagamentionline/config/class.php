@@ -46,6 +46,109 @@
 
     }
 
+    class Errori {
+        private $error = [
+            'id_coop' => [
+                'value' => 0,
+                'typeError' => '',
+            ],
+            'nome_coop' => [
+                'value' => 0,
+                'typeError' => '',
+            ],
+            'id_socio' => [
+                'value' => 0,
+                'typeError' => '',
+            ],
+            'cod_cliente_infinity' => [
+                'value' => 0,
+                'typeError' => '',
+            ],
+            'nome' => [
+                'value' => 0,
+                'typeError' => '',
+            ],
+            'cognome' => [
+                'value' => 0,
+                'typeError' => '',
+            ],
+            'cod_prestazione' => [
+                'value' => 0,
+                'typeError' => '',
+            ],
+            'prestazione' => [
+                'value' => 0,
+                'typeError' => '',
+            ],
+            'importo' => [
+                'value' => 0,
+                'typeError' => '',
+            ],
+            'status' => [
+                'value' => 0,
+                'typeError' => '',
+            ],
+            'messaggi' => [
+                'value' => 0,
+                'typeError' => '',
+            ],
+            'email' => [
+                'value' => 0,
+                'typeError' => '',
+            ],
+        ];
+        private $typeError = [
+            '0' => "E' vuoto",
+            '1' => 'Non rispetta i parametri',
+            '2' => 'Email non valida',
+        ];
+
+        public function setError($indice, $errore = 0, $type = '') {
+            $this->error[$indice]['value'] = $errore;
+            $this->error[$indice]['typeError'] = $this->typeError[$type];
+        }
+
+        public function checkChar($string, $length) {
+            if (strlen($string) > $length) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+
+        public function checkEmail($email, $length) {
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)&&!filter_var($email, FILTER_VALIDATE_DOMAIN)) {
+                return 1;
+            } else if ($email > $length) {
+                return 2;
+            } else {
+                return 0;
+            }
+
+            
+        }
+
+        public function checkError() {
+            $chekErrore = 0;
+            foreach($this->error as $key=>$errore) {
+                if ($this->error[$key]['value'] == 1) {
+                    $chekErrore += 1;
+                }
+            }
+
+            if ($chekErrore > 0) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+
+        public function getError() {
+            return $this->error;
+        }
+
+    }
+
     class Payment {
         private $id_coop;
         private $nome_coop;
@@ -58,60 +161,26 @@
         private $importo;
         private $status;
         private $messaggi;
-        private $msgError = [
-            'nome_coop'            => 0,
-            'cod_cliente_infinity' => 0,
-            'nome'                 => 0,
-            'cognome'              => 0,
-            'cod_prestazione'      => 0,
-            'prestazione'          => 0,
-            'status'               => 0,
-            'messaggi'             => 0,
-        ];
+        private $email;
 
-        function __construct($id_coop, $nome_coop, $id_socio, $cod_cliente_infinity, $nome, $cognome, $cod_prestazione, $prestazione, $importo, $status, $messaggi) {
-            $this->id_coop = $this->setId($id_coop);
-            $this->nome_coop = $this->setChar($nome_coop,'nome_coop', 255);
-            $this->id_socio = $this->setId($id_socio);
-            $this->cod_cliente_infinity = $this->setChar($cod_cliente_infinity,'cod_cliente_infinity', 255);
-            $this->nome = $this->setName($nome,'nome', 255);
-            $this->cognome = $this->setName($cognome,'cognome', 255);
-            $this->cod_prestazione = $this->setChar($cod_prestazione,'cod_prestazione', 255);
-            $this->prestazione = $this->setChar($prestazione,'prestazione', 500);
+        function __construct($id_coop, $nome_coop, $id_socio, $cod_cliente_infinity, $nome, $cognome, $cod_prestazione, $prestazione, $importo, $status, $messaggi, $email) {
+            $this->id_coop = h($id_coop);
+            $this->nome_coop = h($nome_coop);
+            $this->id_socio = h($id_socio);
+            $this->cod_cliente_infinity = h($cod_cliente_infinity);
+            $this->nome = $this->setName($nome);
+            $this->cognome = $this->setName($cognome);
+            $this->cod_prestazione = h($cod_prestazione);
+            $this->prestazione = h($prestazione);
             $this->importo = $this->setAmmount($importo);
-            $this->status = $this->setChar($status,'status', 255);
-            $this->messaggi = $this->setChar($messaggi,'messaggi', 255);
+            $this->status = h($status);
+            $this->messaggi = h($messaggi);
+            $this->email = h($email);
         }
 
-        public function getError(){
-            return $this->msgError;
-        }
-
-        public function setId($id_coop){
-            return h($id_coop);
-        }
-
-        public function setChar($str, $index , $lenght){
-            $str = h($str);
-            if (strlen($str) > $lenght){
-                $this->msgError[$index] = 1;
-                return 0; 
-            } else {
-                return $str;
-            }
-        }
-
-        public function setName($str, $index , $lenght){
-            $str = h($str);
-            if (strlen($str) > $lenght){
-                $this->msgError = [
-                    $index => 1,
-                ];
-                return $this->msgError; 
-            } else {
-                $str = ucwords($str); 
-                return $str;
-            }
+        public function setName($str){
+            $str = h(ucwords($str));
+            return $str;
         }
 
         public function setAmmount($importo){
