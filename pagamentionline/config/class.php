@@ -118,7 +118,7 @@
         }
 
         public function checkEmail($email, $length) {
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)&&!filter_var($email, FILTER_VALIDATE_DOMAIN)) {
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)||!filter_var($email, FILTER_VALIDATE_DOMAIN)) {
                 return 1;
             } else if ($email > $length) {
                 return 2;
