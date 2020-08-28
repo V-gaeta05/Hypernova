@@ -101,6 +101,18 @@
   </body>
 </html>
 <script>
+    function sendData(res){
+        /*$.ajax({
+            url: '',
+            method: 'POST',
+            data:'stato='+res,
+            success: function(res){
+                console.log(res);
+                
+                
+            } 
+        });*/
+    }
   paypal.Buttons({
     createOrder: function(data, actions) {
       // This function sets up the details of the transaction, including the amount and line item details.
@@ -119,11 +131,13 @@
       return actions.order.capture().then(function(details) {
         // This function shows a transaction success message to your buyer.
         $.ajax({
-            url: "action/action_autput.php?code=<?php echo $code; ?>&method=pagamento_riuscito&stato="+details.status,
+            url: "action/action_output.php?code=<?php echo $code; ?>&method=pagamento_riuscito&stato="+details.status,
             success: function(res){
                 res = JSON.parse(res);
                 if (res == 'COMPLETED'){
+                    sendData(res);
                     window.location = "payment.php?code=<?php echo $code; ?>&method=pagamento_riuscito&pagamento_da="+details.payer.name.given_name+"&stato="+details.status;
+                    
                 }
             }
 

@@ -38,8 +38,8 @@ Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta
         var nome = 'Francesco';
         var cognome = 'Dicandia';
         var cod_prestazione = '3433543';
-        var importo = '15000';
-        var email = 'dioclo@gmail.com';
+        var importo = '1.5';
+        var email = '';
         $.ajax({
             method: 'POST',
             url: 'action/action_input.php',
