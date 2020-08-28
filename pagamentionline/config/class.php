@@ -7,10 +7,10 @@
             require '../vendor/autoload.php';
             $mail = new PHPMailer(true);
             try{
-                $eM_Host     = "smtp.web.de";		
-                $eM_Port     = 587;
+                $eM_Host     = "smtp.gmail.com";		
+                $eM_Port     = 465;
                 $eM_Auth     = true;
-                $eM_Secure   = "tls";
+                $eM_Secure   = "ssl";
                 $eM_username = "hypernovatest2808@gmail.com";
                 $eM_password = "Hypernov@2808";
 
