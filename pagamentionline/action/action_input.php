@@ -119,11 +119,23 @@
         if ($err->checkError() == 0) {
             $payment = new Payment($id_coop, $nome_coop, $id_socio, $cod_cliente_infinity, $nome, $cognome, $cod_prestazione, $prestazione, $importo, $status, $messaggi, $email);
             
+            // Settaggio valori da passare al DB
+            $id_coop = $payment->getValore('id_coop');
+            $nome_coop = $payment->getValore('nome_coop');
+            $id_socio = $payment->getValore('id_socio');
+            $cod_cliente_infinity = $payment->getValore('cod_cliente_infinity');
+            $nome = $payment->getValore('nome');
+            $cognome = $payment->getValore('cognome');
+            $cod_prestazione = $payment->getValore('cod_prestazione');
+            $prestazione = $payment->getValore('prestazione');
+            $importo = $payment->getValore('importo');
+            $status = $payment->getValore('status');
+            $messaggi = $payment->getValore('messaggi');
             $data = $payment->dataEmissione();
             $codePayment = $payment->creazioneCodicePagamento();
+            $email = $payment->getValore('email');
 
             $db = new Db($conn);
-
             $sql = "INSERT INTO pagamenti (id_coop, nome_coop, id_socio, cod_cliente_infinity, nome, cognome, cod_prestazione, prestazione, importo, status, messaggi, data_emissione, cod_pagamento, email) 
                 VALUES ('$id_coop', '$nome_coop', '$id_socio', '$cod_cliente_infinity', '$nome', '$cognome', '$cod_prestazione', '$prestazione', '$importo', '$status', '$messaggi', '$data', '$codePayment', '$email')";
 
@@ -132,7 +144,7 @@
             if( $response['risultato'] == 1) {
                 $paymentLink = $payment->generateLink($codePayment);
                 $mail = new SandEmail();
-                $mail->sendEmail($paymentLink, $email);
+                $mail->sendEmail($paymentLink, $email, $nome.' '.$cognome);
 
             } else if ($response['risultato'] == 0) {
                 die("Impossibile inserire il risultato nel database.");

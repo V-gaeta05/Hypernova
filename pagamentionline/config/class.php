@@ -3,7 +3,7 @@
     use PHPMailer\PHPMailer\Exception;
 
     class SandEmail {
-        public function sendEmail($link, $email_cliente){
+        public function sendEmail($link, $email_cliente, $nome){
             require '../vendor/autoload.php';
             $mail = new PHPMailer(true);
             try{
@@ -30,12 +30,12 @@
                 $mail->Password   = $eM_password;
             
               
-                $mail->Setfrom($eM_username, "Lavoro");
+                $mail->Setfrom($eM_username, $nome);
                 $mail->addAddress($email_cliente);     // Add a recipient
                 $mail->isHTML(true);
-                $mail->Subject= '';
-                $mail->Body= '
-                <a href="'.$link.'"> Vai al pagamento</a>';
+                $mail->Subject= 'Emissione Pagamento';
+                $mail->Body= '<h5>Emissione Pagamento</h5>'.
+                "E' stato emesso un nuovo pagamento a suo nome da".$nome.'. <br><a href="'.$link.'"> Vai al pagamento</a>';
                 $mail->send();
                 
             }catch(Exception $e){
@@ -184,7 +184,8 @@
         }
 
         public function setAmmount($importo){
-            $importo = $importo * 104 / 100;
+            $importo = (float) $importo;
+            $importo = $importo*1.04;
             return $importo;
         }
 
@@ -205,6 +206,10 @@
                 $codeFattura .= $characters[rand(0, $charactersLength-1)];
             }
             return $codeFattura;
+        }
+
+        public function getValore($indice) {
+            return $this->$indice;
         }
 
         public function generateLink($codepayment) {

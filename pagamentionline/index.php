@@ -1,5 +1,6 @@
 <?php
     require_once('config/config.php');
+
 ?>
 
 <!doctype html>
@@ -35,11 +36,11 @@ Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta
         var nome_coop = '1';
         var id_socio = '2';
         var cod_cliente_infinity = 'ID954';
-        var nome = 'Francesco';
+        var nome = 'francesco';
         var cognome = 'Dicandia';
         var cod_prestazione = '3433543';
-        var importo = '1.5';
-        var email = '';
+        var importo = 1.5;
+        var email = 'dioclo@hotmail.it';
         $.ajax({
             method: 'POST',
             url: 'action/action_input.php',

@@ -55,7 +55,7 @@
                     </tr>
                     <tr class="bg-light">
                         <th scope="row"><?php echo $result['cod_prestazione'];?></th>
-                        <td><?php echo $result['importo'];?></td>
+                        <td><?php echo $result['importo'];?> €</td>
                         <td><?php echo $result['nome_coop'];?></td>
                     </tr>
                     <tr class="bg-warning">
