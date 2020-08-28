@@ -144,7 +144,7 @@
             if( $response['risultato'] == 1) {
                 $paymentLink = $payment->generateLink($codePayment);
                 $mail = new SandEmail();
-                $mail->sendEmail($paymentLink, $email, $nome.' '.$cognome);
+                $mail->sendEmail($paymentLink, $email, $nome);
 
             } else if ($response['risultato'] == 0) {
                 die("Impossibile inserire il risultato nel database.");

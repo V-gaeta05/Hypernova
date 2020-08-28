@@ -1,6 +1,8 @@
 <?php
     require_once('config/config.php');
 
+    echo PROJECT_PATH;
+
 ?>
 
 <!doctype html>

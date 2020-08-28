@@ -8,9 +8,9 @@
             $mail = new PHPMailer(true);
             try{
                 $eM_Host     = "smtp.gmail.com";		
-                $eM_Port     = 465;
+                $eM_Port     = 587;
                 $eM_Auth     = true;
-                $eM_Secure   = "ssl";
+                $eM_Secure   = "tls";
                 $eM_username = "hypernovatest2808@gmail.com";
                 $eM_password = "Hypernov@2808";
 
@@ -214,7 +214,7 @@
 
         public function generateLink($codepayment) {
 
-            $link = PROJECT_PATH.'/payment.php?method=external_payment&payment_code='.$codepayment;
+            $link = PROJECT_PATH.'/payment.php?method=external_payment&code='.$codepayment;
             return $link;
         }
 
