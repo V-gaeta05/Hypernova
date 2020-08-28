@@ -17,6 +17,11 @@
             $data = new DateTime($result['data_pagamento']);
             $data_pagamento = ($result['data_pagamento'] == '') ? '' : $data->format("d-m-Y H:i:s");
 
+            $id_coop = $result['id_coop'];
+            $sql = "SELECT * FROM cooperative WHERE id_cooperativa = '$id_coop'";
+
+            $result2 = $db->select($sql)->fetch_array();
+
             
 
         }
@@ -94,7 +99,7 @@
         <?php } ?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://www.paypal.com/sdk/js?client-id=AW2t8HdbPQ17rEBOimuBMQKKIei1xXIiR3cSEBDybdy0gdMksYx40KMtM1RO6WytiH8yYnhAxZRHlTb4&currency=EUR"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.</script>
+    <script src="https://www.paypal.com/sdk/js?client-id=<?php echo $result2['client_id'];?>&currency=EUR"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.</script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

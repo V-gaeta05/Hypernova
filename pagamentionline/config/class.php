@@ -35,7 +35,7 @@
             $mail->isHTML(true);
             $mail->Subject= 'Emissione Pagamento';
             $mail->Body= '<h5>Emissione Pagamento</h5>'.
-            "E' stato emesso un nuovo pagamento a suo nome da".$nome.'. <br><a href="'.$link.'"> Vai al pagamento</a>';
+            "E' stato emesso un nuovo pagamento a suo nome da ".$nome.'. <br><a href="'.$link.'"> Vai al pagamento</a>';
             try{
                 $mail->send();
                 
