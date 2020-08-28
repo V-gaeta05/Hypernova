@@ -70,5 +70,6 @@ Accetta variabili di tipo POST. Il collegamento avviene sul file /action/action_
                 'typeError' => '',
             ],
         ];
-        
+
     Se il value è settato a 0 non sono presenti errori. Se il value è uguale a 1, il campo è errato e comparirà il tipo di errore nel typeError (string).
+    Al momento del pagamento effettuato viene inviato un array json con lo stato della transazione.

@@ -11,8 +11,8 @@
                 $eM_Port     = 587;
                 $eM_Auth     = true;
                 $eM_Secure   = "tls";
-                $eM_username = "CAMBIAMI@web.de";
-                $eM_password = "CAMBIAMI";
+                $eM_username = "hypernovatest2808@gmail.com";
+                $eM_password = "Hypernov@2808";
 
                 $mail = new PHPMailer();
 
