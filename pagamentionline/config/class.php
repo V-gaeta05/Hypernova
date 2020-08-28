@@ -6,40 +6,41 @@
         public function sendEmail($link, $email_cliente, $nome){
             require '../vendor/autoload.php';
             $mail = new PHPMailer(true);
+            $eM_Host     = "smtp.libero.it";		
+            $eM_Port     = 465;
+            $eM_Auth     = true;
+            $eM_Secure   = "ssl";
+            $eM_username = "pippobaudo1992_2020@libero.it";
+            $eM_password = "123456Az";
+
+            
+
+            $mail->SMTPDebug = 3;			// attiva log dell'invio, ELIMINARE quando si mette in "produzione"
+            $mail->Debugoutput = "error_log";	// scrive messaggi di errore nel log di PHP, si può lasciare sempre
+        
+            // impostazione del servizio
+            $mail->IsSMTP();
+        
+            $mail->Host       = $eM_Host;
+            $mail->Port       = $eM_Port;
+            $mail->SMTPAuth   = $eM_Auth;
+            $mail->SMTPSecure = $eM_Secure;
+            $mail->Username   = $eM_username;	// mittente
+            $mail->Password   = $eM_password;
+        
+          
+            $mail->From =  $mail->Username;
+            $mail->FromName = $nome;
+            $mail->addAddress($email_cliente);     // Add a recipient
+            $mail->isHTML(true);
+            $mail->Subject= 'Emissione Pagamento';
+            $mail->Body= '<h5>Emissione Pagamento</h5>'.
+            "E' stato emesso un nuovo pagamento a suo nome da".$nome.'. <br><a href="'.$link.'"> Vai al pagamento</a>';
             try{
-                $eM_Host     = "smtp.gmail.com";		
-                $eM_Port     = 587;
-                $eM_Auth     = true;
-                $eM_Secure   = "tls";
-                $eM_username = "hypernovatest2808@gmail.com";
-                $eM_password = "Hypernov@2808";
-
-                $mail = new PHPMailer();
-
-                $mail->SMTPDebug = 4;			// attiva log dell'invio, ELIMINARE quando si mette in "produzione"
-                $mail->Debugoutput = "error_log";	// scrive messaggi di errore nel log di PHP, si può lasciare sempre
-            
-                // impostazione del servizio
-                $mail->IsSMTP();
-            
-                $mail->Host       = $eM_Host;
-                $mail->Port       = $eM_Port;
-                $mail->SMTPAuth   = $eM_Auth;
-                $mail->SMTPSecure = $eM_Secure;
-                $mail->Username   = $eM_username;	// mittente
-                $mail->Password   = $eM_password;
-            
-              
-                $mail->Setfrom($eM_username, $nome);
-                $mail->addAddress($email_cliente);     // Add a recipient
-                $mail->isHTML(true);
-                $mail->Subject= 'Emissione Pagamento';
-                $mail->Body= '<h5>Emissione Pagamento</h5>'.
-                "E' stato emesso un nuovo pagamento a suo nome da".$nome.'. <br><a href="'.$link.'"> Vai al pagamento</a>';
                 $mail->send();
                 
             }catch(Exception $e){
-            echo 'errore';
+                echo "Mailer Error: " . $mail->ErrorInfo;
             }
         }
 
