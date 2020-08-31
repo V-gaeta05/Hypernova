@@ -102,11 +102,20 @@
             '0' => "E' vuoto",
             '1' => 'Non rispetta i parametri',
             '2' => 'Email non valida',
+            '3' => "L'importo deve essere maggiore di zero"
         ];
 
         public function setError($indice, $errore = 0, $type = '') {
             $this->error[$indice]['value'] = $errore;
             $this->error[$indice]['typeError'] = $this->typeError[$type];
+        }
+
+        public function setImporto($importo) {
+            if ($importo > 0 ) {
+                return 0;
+            } else {
+                return 1;
+            }
         }
 
         public function checkChar($string, $length) {
