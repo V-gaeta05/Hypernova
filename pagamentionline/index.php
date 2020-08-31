@@ -39,7 +39,7 @@ Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta
         var nome = 'francesco';
         var cognome = 'Dicandia';
         var cod_prestazione = '3433543';
-        var importo = 1.5;
+        var importo = -15;
         var email = 'prova@mail.it';
         $.ajax({
             method: 'POST',

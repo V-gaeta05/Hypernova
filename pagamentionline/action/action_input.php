@@ -68,7 +68,12 @@
         }
 
         if ( isset($_POST['importo'])&&(!empty($_POST['importo'])) ) {
-            $importo = $_POST['importo'];
+            if ($err->setImporto($_POST['importo']) == 0) {
+                $importo = $_POST['importo'];
+            } else {
+                $err->setError('importo', 1, 3);
+            }
+            
         } else {
             $err->setError('importo', 1, 0);
         }
