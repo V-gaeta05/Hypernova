@@ -3,15 +3,15 @@
     use PHPMailer\PHPMailer\Exception;
 
     class SandEmail {
-        public function sendEmail($link, $email_cliente, $nome, $cognome){
+        public function sendEmail($email_cliente, $from, $subject, $body){
             require '../vendor/autoload.php';
             $mail = new PHPMailer(true);
             $eM_Host     = "smtp.libero.it";		
             $eM_Port     = 465;
             $eM_Auth     = true;
             $eM_Secure   = "ssl";
-            $eM_username = "pippobaudo1992_2020@libero.it";
-            $eM_password = "123456Az";
+            $eM_username = "pippobaudo1992_2021@libero.it";
+            $eM_password = "123456@Az";
 
             
 
@@ -30,12 +30,11 @@
         
           
             $mail->From =  $mail->Username;
-            $mail->FromName = $nome.' '.$cognome;
+            $mail->FromName = $from;
             $mail->addAddress($email_cliente);     // Add a recipient
             $mail->isHTML(true);
-            $mail->Subject= 'Emissione Pagamento';
-            $mail->Body= '<h5>Emissione Pagamento</h5>'.
-            "E' stato emesso un nuovo pagamento a suo nome da ".$nome.'. <br><a href="'.$link.'"> Vai al pagamento</a>';
+            $mail->Subject= $subject;
+            $mail->Body= $body;
             try{
                 $mail->send();
                 
@@ -105,7 +104,8 @@
             '0' => "E' vuoto",
             '1' => 'Non rispetta i parametri',
             '2' => 'Email non valida',
-            '3' => "L'importo deve essere maggiore di zero"
+            '3' => "L'importo deve essere maggiore di zero",
+            '4' => "L'id della cooperativa non esiste"
         ];
 
         public function setError($indice, $errore = 0, $type = '') {

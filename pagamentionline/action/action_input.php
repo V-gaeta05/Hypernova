@@ -4,9 +4,27 @@
     
     require_once('../config/config.php');
     $err = new Errori;
+    $db = new Db($conn);
+    
+    // Richiamiamo la tabella delle coop
+    $sql = "SELECT * FROM cooperative";
+    $coop = $db->select($sql);
+
+    // Controllo dei campi ricevuti in $_POST
     if( isset($_POST)&&(!empty($_POST)) ) {
         if ( isset($_POST['id_coop'])&&(!empty($_POST['id_coop'])) ) {
-            $id_coop = $_POST['id_coop'];
+            $control = 0;
+            foreach($coop as $cpa) {
+                if ($cpa['id_cooperativa'] == $_POST['id_coop']) {
+                    $control += 1;
+                } 
+            }
+            if ($control > 0) {
+                $id_coop = $_POST['id_coop'];
+            } else {
+                $err->setError('id_coop', 1, 4);
+            }
+            
         } else {
             $err->setError('id_coop', 1, 0);
         }
@@ -18,7 +36,11 @@
                 $nome_coop = $_POST['nome_coop'];
             }
         } else {
-            $err->setError('nome_coop', 1, 0);
+            foreach($coop as $cpa) {
+                if($cpa['id_cooperativa'] == $id_coop) {
+                    $nome_coop = $cpa['nome_cooperativa'];
+                }
+            }
         }
 
         if ( isset($_POST['id_socio'])&&(!empty($_POST['id_socio'])) ) {
@@ -140,7 +162,7 @@
             $codePayment = $payment->creazioneCodicePagamento();
             $email = $payment->getValore('email');
 
-            $db = new Db($conn);
+            
             $sql = "INSERT INTO pagamenti (id_coop, nome_coop, id_socio, cod_cliente_infinity, nome, cognome, cod_prestazione, prestazione, importo, status, messaggi, data_emissione, cod_pagamento, email) 
                 VALUES ('$id_coop', '$nome_coop', '$id_socio', '$cod_cliente_infinity', '$nome', '$cognome', '$cod_prestazione', '$prestazione', '$importo', '$status', '$messaggi', '$data', '$codePayment', '$email')";
 
@@ -149,8 +171,12 @@
             if( $response['risultato'] == 1) {
                 $paymentLink = $payment->generateLink($codePayment);
                 $mail = new SandEmail();
-                $mail->sendEmail($paymentLink, $email, $nome, $cognome);
-
+                $from = $nome.' '.$cognome;
+                $subject = 'Emissione Pagamento';
+                $body = '<h5>Emissione Pagamento</h5>'.
+                "E' stato emesso un nuovo pagamento a suo nome da ".$from.'. <br><a style="color: green;" href="'.$paymentLink.'"> Vai al pagamento</a>';
+                $mail->sendEmail($email, $from, $subject, $body);
+                
             } else if ($response['risultato'] == 0) {
                 die("Impossibile inserire il risultato nel database.");
             }
