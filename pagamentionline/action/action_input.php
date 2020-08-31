@@ -168,7 +168,7 @@
                     ];
                 }
             }
-            var_dump($sendError);
+            echo json_encode($sendError);
         }
       
     } else {
