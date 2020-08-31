@@ -1,8 +1,8 @@
 <?php
 
-    $server = 'localhost';
-    $dbUser = 'root';
-    $dbPassword = '';
+    $server = '192.168.111.39';
+    $dbUser = 'pw_hypernova';
+    $dbPassword = 'pwhyp3n0v4d3f';
     $dbName = 'hypernova_def';
 
     $conn = new mysqli($server, $dbUser, $dbPassword, $dbName);

@@ -3,7 +3,7 @@
     use PHPMailer\PHPMailer\Exception;
 
     class SandEmail {
-        public function sendEmail($link, $email_cliente, $nome){
+        public function sendEmail($link, $email_cliente, $nome, $cognome){
             require '../vendor/autoload.php';
             $mail = new PHPMailer(true);
             $eM_Host     = "smtp.libero.it";		
@@ -30,7 +30,7 @@
         
           
             $mail->From =  $mail->Username;
-            $mail->FromName = $nome;
+            $mail->FromName = $nome.' '.$cognome;
             $mail->addAddress($email_cliente);     // Add a recipient
             $mail->isHTML(true);
             $mail->Subject= 'Emissione Pagamento';
