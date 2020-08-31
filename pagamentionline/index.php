@@ -1,6 +1,8 @@
 <?php
     require_once('config/config.php');
 
+      
+    
 ?>
 
 <!doctype html>
@@ -40,7 +42,7 @@ Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta
         var cognome = 'Dicandia';
         var cod_prestazione = '3433543';
         var importo = -15;
-        var email = 'prova@mail.it';
+        var email = 'dioclo@hotmail';
         $.ajax({
             method: 'POST',
             url: 'action/action_input.php',

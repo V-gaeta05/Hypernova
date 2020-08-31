@@ -120,7 +120,7 @@
         } else {
             $err->setError('email', 1, 0);
         }
-
+        $errori = $err->getError();
         if ($err->checkError() == 0) {
             $payment = new Payment($id_coop, $nome_coop, $id_socio, $cod_cliente_infinity, $nome, $cognome, $cod_prestazione, $prestazione, $importo, $status, $messaggi, $email);
             
@@ -155,9 +155,20 @@
                 die("Impossibile inserire il risultato nel database.");
             }
             
-            echo json_encode($err->getError()); 
+            echo json_encode($errori['success']); 
         } else {
-            echo json_encode($err->getError());
+            $sendError = [
+                'success' => 1,
+            ];
+            foreach($errori['error'] as $key=>$errore) {
+                if ($errori['error'][$key]['value'] == 1) {
+                    $sendError[$key] = [
+                        'value' => 1,
+                        'typeError' => $errore['typeError'],
+                    ];
+                }
+            }
+            var_dump($sendError);
         }
       
     } else {

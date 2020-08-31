@@ -49,53 +49,56 @@
 
     class Errori {
         private $error = [
-            'id_coop' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'nome_coop' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'id_socio' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'cod_cliente_infinity' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'nome' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'cognome' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'cod_prestazione' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'prestazione' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'importo' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'status' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'messaggi' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'email' => [
-                'value' => 0,
-                'typeError' => '',
+            'success' => 0,
+            'error' => [
+                'id_coop' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'nome_coop' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'id_socio' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'cod_cliente_infinity' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'nome' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'cognome' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'cod_prestazione' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'prestazione' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'importo' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'status' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'messaggi' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'email' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
             ],
         ];
         private $typeError = [
@@ -106,8 +109,8 @@
         ];
 
         public function setError($indice, $errore = 0, $type = '') {
-            $this->error[$indice]['value'] = $errore;
-            $this->error[$indice]['typeError'] = $this->typeError[$type];
+            $this->error['error'][$indice]['value'] = $errore;
+            $this->error['error'][$indice]['typeError'] = $this->typeError[$type];
         }
 
         public function setImporto($importo) {
@@ -139,14 +142,14 @@
         }
 
         public function checkError() {
-            $chekErrore = 0;
-            foreach($this->error as $key=>$errore) {
-                if ($this->error[$key]['value'] == 1) {
-                    $chekErrore += 1;
+            
+            foreach($this->error['error'] as $key=>$a) {
+                if ($this->error['error'][$key]['value'] == 1) {
+                    $this->error['success'] = 1;
                 }
             }
 
-            if ($chekErrore > 0) {
+            if ($this->error['success'] == 1) {
                 return 1;
             } else {
                 return 0;
