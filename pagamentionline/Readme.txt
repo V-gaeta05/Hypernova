@@ -21,55 +21,58 @@ Accetta variabili di tipo POST. Il collegamento avviene sul file /action/action_
     Array multidimensionale di errori. Segue il modello:
 
         $error = [
-            'id_coop' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'nome_coop' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'id_socio' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'cod_cliente_infinity' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'nome' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'cognome' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'cod_prestazione' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'prestazione' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'importo' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'status' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'messaggi' => [
-                'value' => 0,
-                'typeError' => '',
-            ],
-            'email' => [
-                'value' => 0,
-                'typeError' => '',
+            'success' => 0,
+            'error' => [
+                'id_coop' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'nome_coop' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'id_socio' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'cod_cliente_infinity' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'nome' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'cognome' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'cod_prestazione' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'prestazione' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'importo' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'status' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'messaggi' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
+                'email' => [
+                    'value' => 0,
+                    'typeError' => '',
+                ],
             ],
         ];
 
-    Se il value è settato a 0 non sono presenti errori. Se il value è uguale a 1, il campo è errato e comparirà il tipo di errore nel typeError (string).
-    Al momento del pagamento effettuato viene inviato un array json con lo stato della transazione. Rappresenta una singola variabile stringa.
+    Se il valore del success è settato a 0 non sono presenti errori e verrà ricevuto solo il success. Se il valore del success è uguale a 1, il campo è errato e comparirà il tipo di errore nel typeError (string). 
+    Gli indici corretti non verranno mostrati nell'array. Al momento del pagamento effettuato viene inviato un array json con lo stato della transazione. Rappresenta una singola variabile stringa.
