@@ -19,9 +19,12 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
   </head>
   <body>
-  <div id="insert_pay">
+  <button onclick="showCrea()" class="btn btn-primary">Crea Fattura</button>
+  <button onclick="showElimina()" class="btn btn-danger">Disattiva Fattura</button>
+  <div id="insert_pay" style="display: none;">
     
     <div class="form-group">
       <label for="IDCOOP">Cooperativa:</label>
@@ -77,7 +80,7 @@
     </div>
     <button class="btn btn-primary" onclick="crea()">Crea Pagamento</button>
   </div>
-  <div id="delete_pay">
+  <div id="delete_pay" style="display: none;">
     <div class="form-group">
       <label for="NUMERODELETE">Numero Serie:</label>
       <input type="text" class="form-control" id="NUMERODELETE" placeholder="Numero Serie">
@@ -96,6 +99,14 @@
 
 
 <script type="text/javascript">
+    function showCrea() {
+      $("#delete_pay").hide();
+      $("#insert_pay").fadeIn();
+    }
+    function showElimina() {
+      $("#insert_pay").hide();
+      $("#delete_pay").fadeIn();
+    }
     
     function crea() {
       var id_coop = $("#IDCOOP").val();
