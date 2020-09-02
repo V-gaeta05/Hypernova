@@ -110,16 +110,16 @@
 </html>
 <script>
     function sendData(res){
-        var dati = {
-            'id_coop' : '<?php echo $result['id_coop'];?>',
-            'numero_serie' : '<?php echo $result['numero_serie'];?>',
-            'data_fattura' : "<?php echo $result['data_fattura'];?>",
-            'cod_cliente_infinity' : "<?php echo $result['cod_cliente_infinity'];?>",
+        /*var dati = {
+            'id_coop' : '<?php //echo $result['id_coop'];?>',
+            'numero_serie' : '<?php //echo $result['numero_serie'];?>',
+            'data_fattura' : "<?php //echo $result['data_fattura'];?>",
+            'cod_cliente_infinity' : "<?php //echo $result['cod_cliente_infinity'];?>",
             'status_paypal' : res,
         }
 
         dati = JSON.stringify(dati);
-        /*$.ajax({
+        $.ajax({
             url: '',
             method: 'POST',
             data: {mydata: dati},

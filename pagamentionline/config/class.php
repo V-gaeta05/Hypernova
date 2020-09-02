@@ -30,7 +30,8 @@
         
             // impostazione del servizio
             $mail->IsSMTP();
-        
+            
+            $mail->CharSet = 'UTF-8';
             $mail->Host       = $eM_Host;
             $mail->Port       = $eM_Port;
             $mail->SMTPAuth   = $eM_Auth;

@@ -1,7 +1,11 @@
 <?php
     require_once('config/config.php');
 
-      
+    $db = new Db($conn);
+
+    $sql = "SELECT * FROM cooperative";
+
+    $result = $db->select($sql);
     
 ?>
 
@@ -17,10 +21,69 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
-  <button onclick="vaiii()">Via</button>
-  <button onclick="tornaaa()">Torna</button>
-Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta deleniti laborum vitae a sed nam ratione autem velit aut accusantium impedit corporis iure accusamus, nobis ut doloremque? Quam?
-  <a href="C:\xampp\htdocs\Hypernova\pagamentionline/payment.php?method=external_payment&payment_code=1-2-20200826151755-4zXb">link</a>
+  <div id="insert_pay">
+    
+    <div class="form-group">
+      <label for="IDCOOP">Cooperativa:</label>
+      <select id="IDCOOP" class="form-control">
+      <?php foreach ($result as $row) {
+        echo '<option value="'.$row['id_cooperativa'].'">'.$row['nome_cooperativa'].'</option>';
+      }
+      ?></select>
+    </div>
+    <div class="form-group">
+      <label for="IDSOCIO">ID socio:</label>
+      <input type="text" class="form-control" id="IDSOCIO" placeholder="ID socio">
+    </div>
+    <div class="form-group">
+      <label for="CODINFINITY">Codice Cliente Infinity:</label>
+      <input type="text" class="form-control" id="CODINFINITY" placeholder="Codice Cliente Infinity">
+    </div>
+    <div class="form-group">
+      <label for="NSERIE">Numero Serie:</label>
+      <input type="text" class="form-control" id="NSERIE" placeholder="Numero Serie">
+    </div>
+    <div class="form-group">
+      <label for="NSOCIO">Nome Socio:</label>
+      <input type="text" class="form-control" id="NSOCIO" placeholder="Nome Socio">
+    </div>
+    <div class="form-group">
+      <label for="CSOCIO">Cognome Socio:</label>
+      <input type="text" class="form-control" id="CSOCIO" placeholder="Cognome Socio">
+    </div>
+    <div class="form-group">
+      <label for="IMPORTO">Importo:</label>
+      <input type="number" class="form-control" id="IMPORTO" placeholder="0">
+    </div>
+    <div class="form-group">
+      <label for="PRESTAZIONE">Scopo Prestazione:</label>
+      <textarea class="form-control" rows="3" id="PRESTAZIONE" placeholder="Scopo Prestazione"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="CLIENTE">Cliente:</label>
+      <input class="form-control" type="text" id="CLIENTE" placeholder="Cliente">
+    </div>
+    <div class="form-group">
+      <label for="EMAIL">Email Cliente:</label>
+      <input class="form-control" type="email" id="EMAIL" placeholder="esempio@prova.it">
+    </div>
+    <div class="form-group">
+      <label for="STATUS">Status:</label>
+      <input class="form-control" type="text" id="STATUS" placeholder="Status">
+    </div>
+    <div class="form-group">
+      <label for="MESSAGGI">Messaggi:</label>
+      <input class="form-control" type="text" id="MESSAGGI" placeholder="Messaggi">
+    </div>
+    <button class="btn btn-primary" onclick="crea()">Crea Pagamento</button>
+  </div>
+  <div id="delete_pay">
+    <div class="form-group">
+      <label for="NUMERODELETE">Numero Serie:</label>
+      <input type="text" class="form-control" id="NUMERODELETE" placeholder="Numero Serie">
+    </div>
+    <button class="btn btn-danger" onclick="elimina()">Elimina Pagamento</button>
+  </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -34,20 +97,35 @@ Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta
 
 <script type="text/javascript">
     
-    function vaiii() {
+    function crea() {
+      var id_coop = $("#IDCOOP").val();
+      var id_socio = $("#IDSOCIO").val();
+      var cod_cliente_infinity = $("#CODINFINITY").val();
+      var numero_serie = $("#NSERIE").val();
+      var data_fattura = new Date();
+      var nome_socio = $("#NSOCIO").val();
+      var cognome_socio = $("#CSOCIO").val();
+      var prestazione = $("#PRESTAZIONE").val();
+      var importo = $("#IMPORTO").val();
+      var cliente = $("#CLIENTE").val();
+      var email = $("#EMAIL").val();
+      var status = $("#STATUS").val();
+      var messaggi = $("#MESSAGGI").val();
 
         var dati = {
-          'id_coop' : 1,
-          'id_socio' : '2',
-          'cod_cliente_infinity' : 'ID954',
-          'numero_serie' : '349438jhj9384',
-          'data_fattura' : '02-09-2020 19:42:11',
-          'nome_socio' : 'francesco',
-          'cognome_socio' : 'Dicandia',
-          'prestazione' : 'Rifornimento carburante per tutta la azienda piu prestazioni varie ed eventuali su ogni tracciato del circuito',
-          'importo' : '3',
-          'cliente' : 'Stefano prato',
-          'Email' : 'dioclo@hotmail.it',
+          'id_coop' : id_coop,
+          'id_socio' : id_socio,
+          'cod_cliente_infinity' : cod_cliente_infinity,
+          'numero_serie' : numero_serie,
+          'data_fattura' : data_fattura,
+          'nome_socio' : nome_socio,
+          'cognome_socio' : cognome_socio,
+          'prestazione' : prestazione,
+          'importo' : importo,
+          'cliente' : cliente,
+          'Email' : email,
+          'status' : status,
+          'messaggi' : messaggi,
         }
         dati = JSON.stringify(dati);
         $.ajax({
@@ -59,9 +137,10 @@ Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta
             }
         })
     }
-    function tornaaa() {
+    function elimina() {
+      var numero_serie = $("#NUMERODELETE").val();
       var dati = {
-        'numero_serie' : '349438jhj9384'
+        'numero_serie' : numero_serie,
       };
       dati = JSON.stringify(dati);
       $.ajax({

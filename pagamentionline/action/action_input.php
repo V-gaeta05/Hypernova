@@ -182,7 +182,7 @@ if (isset($_GET['action'])&&(!empty($_GET['action']))) {
                     $saluto = $mail->setTime();
                     $subject = 'Emissione Pagamento';
                     $body = '<h5>Emissione Pagamento</h5>'.
-                    "$saluto ".$cliente.".<br>E' stato emesso un nuovo pagamento a suo nome da ".$from.'.<br> La causale del pagamento riportata '.chr(232).': <br>'.$prestazione.'. <br><a style="color: green;" href="'.$paymentLink.'"> Vai al pagamento</a>';
+                    "$saluto ".$cliente.".<br>E' stato emesso un nuovo pagamento a suo nome da ".$from.'.<br> La causale del pagamento riportata è: <br>'.$prestazione.'. <br><a style="color: green;" href="'.$paymentLink.'"> Vai al pagamento</a>';
                     $mail->sendEmail($email_cliente, $from, $subject, $body);
                     
                 } else if ($response['risultato'] == 0) {
