@@ -18,6 +18,7 @@
   </head>
   <body>
   <button onclick="vaiii()">Via</button>
+  <button onclick="tornaaa()">Torna</button>
 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta deleniti laborum vitae a sed nam ratione autem velit aut accusantium impedit corporis iure accusamus, nobis ut doloremque? Quam?
   <a href="C:\xampp\htdocs\Hypernova\pagamentionline/payment.php?method=external_payment&payment_code=1-2-20200826151755-4zXb">link</a>
     <!-- Optional JavaScript -->
@@ -34,22 +35,42 @@ Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur sint dicta
 <script type="text/javascript">
     
     function vaiii() {
-        var id_coop = '2';
-        var nome_coop = '1';
-        var id_socio = '2';
-        var cod_cliente_infinity = 'ID954';
-        var nome = 'francesco';
-        var cognome = 'Dicandia';
-        var cod_prestazione = '3433543';
-        var importo = 3;
-        var email = 'dioclo@hotmail.it';
+
+        var dati = {
+          'id_coop' : 1,
+          'id_socio' : '2',
+          'cod_cliente_infinity' : 'ID954',
+          'numero_serie' : '349438jhj9384',
+          'data_fattura' : '02-09-2020 19:42:11',
+          'nome_socio' : 'francesco',
+          'cognome_socio' : 'Dicandia',
+          'prestazione' : 'Rifornimento carburante per tutta la azienda piu prestazioni varie ed eventuali su ogni tracciato del circuito',
+          'importo' : '3',
+          'cliente' : 'Stefano prato',
+          'Email' : 'dioclo@hotmail.it',
+        }
+        dati = JSON.stringify(dati);
         $.ajax({
             method: 'POST',
-            url: 'action/action_input.php',
-            data: 'id_coop='+id_coop+'&nome_coop='+nome_coop+'&id_socio='+id_socio+'&cod_cliente_infinity='+cod_cliente_infinity+'&nome='+nome+'&cognome='+cognome+'&cod_prestazione='+cod_prestazione+'&importo='+importo+'&email='+email,
+            url: 'action/action_input.php?action=insert',
+            data: {mydata:dati},
             success: function(res) {
                 console.log(res);
             }
         })
+    }
+    function tornaaa() {
+      var dati = {
+        'numero_serie' : '349438jhj9384'
+      };
+      dati = JSON.stringify(dati);
+      $.ajax({
+        method: 'POST',
+        url: 'action/action_input.php?action=delete',
+        data: {mydata:dati},
+        success: function(res) {
+          console.log(res);
+        }
+      })
     }
 </script>

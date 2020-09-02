@@ -3,6 +3,17 @@
     use PHPMailer\PHPMailer\Exception;
 
     class SandEmail {
+        public function setTime() {
+            $time = new DateTime();
+            $t = $time->format('H');
+            if (($t>=8)&&($t <= 15)) {
+                $message = 'Buongiorno';
+            } else {
+                $message = "Buonasera";
+            }
+            return $message;
+        }
+
         public function sendEmail($email_cliente, $from, $subject, $body){
             require '../vendor/autoload.php';
             $mail = new PHPMailer(true);
@@ -12,7 +23,6 @@
             $eM_Secure   = "ssl";
             $eM_username = "pippobaudo1992_2021@libero.it";
             $eM_password = "123456@Az";
-
             
 
             $mail->SMTPDebug = 3;			// attiva log dell'invio, ELIMINARE quando si mette in "produzione"
@@ -48,67 +58,71 @@
 
     class Errori {
         private $error = [
-            'success' => 0,
+            'success' => 1,
             'error' => [
                 'id_coop' => [
-                    'value' => 0,
-                    'typeError' => '',
-                ],
-                'nome_coop' => [
-                    'value' => 0,
+                    'value' => 1,
                     'typeError' => '',
                 ],
                 'id_socio' => [
-                    'value' => 0,
+                    'value' => 1,
                     'typeError' => '',
                 ],
                 'cod_cliente_infinity' => [
-                    'value' => 0,
+                    'value' => 1,
                     'typeError' => '',
                 ],
-                'nome' => [
-                    'value' => 0,
+                'numero_serie' => [
+                    'value' => 1,
                     'typeError' => '',
                 ],
-                'cognome' => [
-                    'value' => 0,
+                'data_fattura' => [
+                    'value' => 1,
                     'typeError' => '',
                 ],
-                'cod_prestazione' => [
-                    'value' => 0,
+                'nome_socio' => [
+                    'value' => 1,
+                    'typeError' => '',
+                ],
+                'cognome_socio' => [
+                    'value' => 1,
                     'typeError' => '',
                 ],
                 'prestazione' => [
-                    'value' => 0,
+                    'value' => 1,
                     'typeError' => '',
                 ],
                 'importo' => [
-                    'value' => 0,
+                    'value' => 1,
+                    'typeError' => '',
+                ],
+                'cliente' => [
+                    'value' => 1,
                     'typeError' => '',
                 ],
                 'status' => [
-                    'value' => 0,
+                    'value' => 1,
                     'typeError' => '',
                 ],
                 'messaggi' => [
-                    'value' => 0,
+                    'value' => 1,
                     'typeError' => '',
                 ],
-                'email' => [
-                    'value' => 0,
+                'Email' => [
+                    'value' => 1,
                     'typeError' => '',
                 ],
             ],
         ];
         private $typeError = [
-            '0' => "E' vuoto",
-            '1' => 'Non rispetta i parametri',
+            '0' => "Il campo risulta vuoto",
+            '1' => 'Il campo non rispetta i parametri prestabiliti',
             '2' => 'Email non valida',
             '3' => "L'importo deve essere maggiore di zero",
             '4' => "L'id della cooperativa non esiste"
         ];
 
-        public function setError($indice, $errore = 0, $type = '') {
+        public function setError($indice, $errore = 1, $type = '') {
             $this->error['error'][$indice]['value'] = $errore;
             $this->error['error'][$indice]['typeError'] = $this->typeError[$type];
         }
@@ -144,15 +158,15 @@
         public function checkError() {
             
             foreach($this->error['error'] as $key=>$a) {
-                if ($this->error['error'][$key]['value'] == 1) {
-                    $this->error['success'] = 1;
+                if ($this->error['error'][$key]['value'] == 0) {
+                    $this->error['success'] = 0;
                 }
             }
 
-            if ($this->error['success'] == 1) {
-                return 1;
-            } else {
+            if ($this->error['success'] == 0) {
                 return 0;
+            } else {
+                return 1;
             }
         }
 
@@ -164,31 +178,40 @@
 
     class Payment {
         private $id_coop;
-        private $nome_coop;
         private $id_socio;
         private $cod_cliente_infinity;
-        private $nome;
-        private $cognome;
-        private $cod_prestazione;
+        private $numero_serie;
+        private $data_fattura;
+        private $nome_socio;
+        private $cognome_socio;
         private $prestazione;
         private $importo;
         private $status;
         private $messaggi;
-        private $email;
+        private $cliente;
+        private $email_cliente;
 
-        function __construct($id_coop, $nome_coop, $id_socio, $cod_cliente_infinity, $nome, $cognome, $cod_prestazione, $prestazione, $importo, $status, $messaggi, $email) {
+
+        function __construct($id_coop, $id_socio, $cod_cliente_infinity, $numero_serie, $data_fattura, $nome_socio, $cognome_socio, $prestazione, $importo, $status, $messaggi, $cliente, $email_cliente) {
             $this->id_coop = h($id_coop);
-            $this->nome_coop = h($nome_coop);
             $this->id_socio = h($id_socio);
             $this->cod_cliente_infinity = h($cod_cliente_infinity);
-            $this->nome = $this->setName($nome);
-            $this->cognome = $this->setName($cognome);
-            $this->cod_prestazione = h($cod_prestazione);
+            $this->numero_serie = h($numero_serie);
+            $this->data_fattura = h($this->setRightData($data_fattura));
+            $this->nome_socio = $this->setName($nome_socio);
+            $this->cognome_socio = $this->setName($cognome_socio);
             $this->prestazione = h($prestazione);
             $this->importo = $this->setAmmount($importo);
             $this->status = h($status);
             $this->messaggi = h($messaggi);
-            $this->email = h($email);
+            $this->cliente = $this->setName($cliente);
+            $this->email_cliente = h($email_cliente);
+        }
+
+        public function setRightData($data) {
+            $d = new DateTime($data);
+            $date = $d->format("Y-m-d H:i:s");
+            return $date;
         }
 
         public function setName($str){
@@ -215,7 +238,7 @@
 
             $codeFattura .= $this->id_coop.'-'.$this->id_socio.'-';
             $codeFattura .= date('YmdHis').'-';
-            for ($i=0; $i<4; $i++) {
+            for ($i=0; $i<6; $i++) {
                 $codeFattura .= $characters[rand(0, $charactersLength-1)];
             }
             return $codeFattura;

@@ -8,7 +8,7 @@
             $db = new Db($conn);
             $code = $_GET['code'];
 
-            $sql = "SELECT * FROM pagamenti WHERE cod_pagamento = '$code'";
+            $sql = "SELECT * FROM pagamenti WHERE cod_link = '$code'";
 
             $result = $db->select($sql)->fetch_array();
 
@@ -40,7 +40,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
-  <body>
+  <body class="bg-light">
       <?php
         if ($_GET['method'] == 'external_payment') { ?>
         <div class="m-4">
@@ -59,9 +59,9 @@
                         <th scope="col">Cooperativa</th>
                     </tr>
                     <tr class="bg-light">
-                        <th scope="row"><?php echo $result['cod_prestazione'];?></th>
+                        <th scope="row"><?php echo $result['numero_serie'];?></th>
                         <td><?php echo $result['importo'];?> €</td>
-                        <td><?php echo $result['nome_coop'];?></td>
+                        <td><?php echo $result2['nome_cooperativa'];?></td>
                     </tr>
                     <tr class="bg-warning">
                         <th scope="col">Socio</th>
@@ -69,7 +69,7 @@
                         <th scope="col">Messaggio</th>
                     </tr>
                     <tr class="bg-light">
-                        <td><?php echo $result['nome'].' '.$result['cognome'];?></td>
+                        <td><?php echo $result['nome_socio'].' '.$result['cognome_socio'];?></td>
                         <td><?php echo $result['prestazione'];?></td>
                         <td><?php echo $result['messaggi'];?></td>
                     </tr>
@@ -81,18 +81,21 @@
                     <tr class="bg-light">
                         <td><?php echo $data_emissione;?></td>
                         <td><?php echo $data_pagamento;?></td>
-                        <td><?php $is_payed = ($result['stato_pagamento'] == 1) ? '<p class="text-success">Pagato</p>' : '<p class="text-danger">Non Pagato</p>'; echo $is_payed;?></td>
+                        <td><?php $is_payed = ($result['status_pagamento'] == 1) ? '<p class="text-success">Pagato</p>' : '<p class="text-danger">Non Pagato</p>'; echo $is_payed;?></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <?php if ( $result['stato_pagamento'] == 0 ) {
-
+        <?php if  ($result['status_pagamento'] == 0 ) {
+                if ($result['pagamento_attivo'] == 1) {
         ?>
 
             <div class='text-center'><div id="paypal-button-container"></div><div>
         <?php 
-                }  
+                } else { ?>
+                    <div class="text-center text-info"><h1>Pagamento Disattivato</h1></div>
+                <?php } 
+            }
         
             } else if ( $_GET['method'] == 'pagamento_riuscito'){ ?>
             <span class="text-center"><h1 class="bg-success text-white"> Grazie <?php echo $_GET['pagamento_da']; ?> per aver effettuato il pagamento </h1></span>
@@ -107,10 +110,19 @@
 </html>
 <script>
     function sendData(res){
+        var dati = {
+            'id_coop' : '<?php echo $result['id_coop'];?>',
+            'numero_serie' : '<?php echo $result['numero_serie'];?>',
+            'data_fattura' : "<?php echo $result['data_fattura'];?>",
+            'cod_cliente_infinity' : "<?php echo $result['cod_cliente_infinity'];?>",
+            'status_paypal' : res,
+        }
+
+        dati = JSON.stringify(dati);
         /*$.ajax({
             url: '',
             method: 'POST',
-            data:'stato='+res,
+            data: {mydata: dati},
             success: function(res){
                 console.log(res);
                 
@@ -127,7 +139,7 @@
             value: <?php echo $result['importo']; ?>,
             currency: 'EUR'
           },
-          description: '<?php echo $result['prestazione'].' Codice prestazione: '.$result['cod_prestazione'].' '; ?>'+'(Pagamento corrisposto a '+'<?php echo $result['nome'].' '.$result['cognome'].'('.$result['id_socio'].')'; ?>'+') ('+'<?php echo $result['cod_cliente_infinity']; ?>'+')'
+          description: "Numero Serie: "+"<?php echo $result['numero_serie'];?>"+"  Codice Cliente infinity: "+"<?php echo $result['cod_cliente_infinity'];?>"+"  Pagamento Corrisposto a: "+"<?php echo $result['nome_socio'].' '.$result['cognome_socio'].'(id socio: '.$result['id_socio'].')';?>"
         }]
       });
     },
@@ -139,6 +151,7 @@
             url: "action/action_output.php?code=<?php echo $code; ?>&method=pagamento_riuscito&stato="+details.status,
             success: function(res){
                 res = JSON.parse(res);
+                console.log(res);
                 if (res == 'COMPLETED'){
                     sendData(res);
                     window.location = "payment.php?code=<?php echo $code; ?>&method=pagamento_riuscito&pagamento_da="+details.payer.name.given_name+"&stato="+details.status;
