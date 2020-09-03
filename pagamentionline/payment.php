@@ -10,7 +10,7 @@
 
             $sql = "SELECT * FROM pagamenti WHERE cod_link = '$code'";
 
-            $result = $db->select($sql)->fetch_array();
+            $result = $db->select($sql)->fetch(PDO::FETCH_ASSOC);
 
             $data = new DateTime($result['data_emissione']);
             $data_emissione = $data->format("d-m-Y H:i:s");
@@ -20,7 +20,7 @@
             $id_coop = $result['id_coop'];
             $sql = "SELECT * FROM cooperative WHERE id_cooperativa = '$id_coop'";
 
-            $result2 = $db->select($sql)->fetch_array();
+            $result2 = $db->select($sql)->fetch(PDO::FETCH_ASSOC);
 
             
 

@@ -269,7 +269,7 @@
             if ($result) {
                 $esito = [
                     'risultato' => 1,
-                    'last_id'   => $this->db->insert_id,
+                    'last_id'   => $this->db->lastInsertId(),
                 ];
             } else {
                 $esito = [

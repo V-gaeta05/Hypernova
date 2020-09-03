@@ -1,11 +1,12 @@
 <?php
 
+    $dsn = "mysql:host=localhost;dbname=hypernova_def";
     $server = 'localhost';
     $dbUser = 'root';
     $dbPassword = '';
     $dbName = 'hypernova_def';
 
-    $conn = new mysqli($server, $dbUser, $dbPassword, $dbName);
+    $conn = new PDO($dsn, $dbUser,$dbPassword);
 
     if(!$conn) {
         die("Impossibile eseguire la connessione al database".$conn->connect_error.$conn->connect_errno);
